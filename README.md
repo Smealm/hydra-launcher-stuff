@@ -4,18 +4,15 @@ A Python script that integrates with Hydra launcher to automatically install GOG
 
 ## Prerequisites
 
-- Python 3.9
 - innoextract (must be in system PATH)
 - Windows 10/11 (for full functionality)
 
 ## Setup
 
 1. **Install Prerequisites**
-   - Install [Python 3.9.x](https://www.python.org/downloads/release/python-3913/) (check "Add to PATH" during installation)
    - Install [innoextract](https://constexpr.org/innoextract/) and add it to your system PATH
    - Verify both are installed:
      ```bash
-     python --version  # Should show Python 3.9.x
      innoextract --version  # Should show version info
      ```
 
@@ -38,7 +35,7 @@ A Python script that integrates with Hydra launcher to automatically install GOG
 2. **Download Games in Hydra**
    - Use Hydra launcher to download GOG games as usual
    - The script will automatically detect and process new installers
-   - After installation, Hydra will restart with the new game ready to play
+   - Point Hydra Launcher to your game manually
 
 ### Running at Startup (Recommended)
 1. Create a shortcut to the script
@@ -57,25 +54,18 @@ A Python script that integrates with Hydra launcher to automatically install GOG
 3. **Installation**:
    - Creates a clean folder for the game
    - Installs the game or DLC with proper file structure
-   - Updates the game's executable path in Hydra's database
-   - Restarts Hydra to apply changes
-
-4. **Completion**: The game appears in your Hydra library with the correct executable path, ready to play
+   - Removes installer files afterwards
 
 ## Features
 
-- Fully automatic - no manual intervention needed
-- Updates Hydra with correct executable paths
 - Handles GOG setup files
 - Clean error handling and logging
-- Automatic Hydra restart after installation
 - Runs in the background with minimal resource usage
 
 ## Notes
 
 - The script requires administrator privileges to install games without UAC prompt
-- Game installations are logged in the respective game directories
-- The script will automatically close and restart Hydra if it's running
+- Game installations are logged in the respective game directories (as well as in the gogdb_meta.json in the _database folder)
 
 ## Troubleshooting
 
