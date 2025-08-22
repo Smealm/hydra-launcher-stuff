@@ -22,12 +22,79 @@ import os
 import ctypes
 import datetime
 import json
-import plyvel
 import psutil
 import pythoncom
 import subprocess
+from ctypes import wintypes
 from urllib.parse import urljoin
 from win32com.client import Dispatch
+
+# Windows Shell API constants
+FO_DELETE = 0x0003
+FOF_ALLOWUNDO = 0x0040
+FOF_NOCONFIRMATION = 0x0010
+FOF_NOERRORUI = 0x0400
+FOF_SILENT = 0x0004
+
+class SHFILEOPSTRUCTW(ctypes.Structure):
+    _fields_ = [
+        ("hwnd", wintypes.HWND),
+        ("wFunc", wintypes.UINT),
+        ("pFrom", wintypes.LPCWSTR),
+        ("pTo", wintypes.LPCWSTR),
+        ("fFlags", wintypes.INT),
+        ("fAnyOperationsAborted", wintypes.BOOL),
+        ("hNameMappings", wintypes.LPVOID),
+        ("lpszProgressTitle", wintypes.LPCWSTR)
+    ]
+
+def move_to_recycle_bin(path):
+    """Move a file or directory to the recycle bin."""
+    try:
+        # Ensure the path is absolute and exists
+        path = os.path.abspath(path)
+        if not os.path.exists(path):
+            print(f"Path does not exist: {path}")
+            return False
+        
+        # Convert path to proper format for Windows API
+        path = os.path.normpath(path)
+        if not os.path.isabs(path):
+            path = os.path.abspath(path)
+        
+        # For directories, ensure it ends with a backslash
+        if os.path.isdir(path) and not path.endswith('\\'):
+            path += '\\'
+        
+        # Prepare the path string - must be double null-terminated
+        # Create a null-terminated wide string and add an extra null terminator
+        path_str = path.replace('/', '\\')
+        path_encoded = path_str + '\0'
+        
+        # Set up the SHFileOperation struct
+        shell32 = ctypes.windll.shell32
+        shell32.SHFileOperationW.argtypes = [ctypes.POINTER(SHFILEOPSTRUCTW)]
+        
+        fileop = SHFILEOPSTRUCTW()
+        fileop.hwnd = 0
+        fileop.wFunc = FO_DELETE
+        fileop.pFrom = ctypes.c_wchar_p(path_encoded)
+        fileop.pTo = None
+        fileop.fFlags = FOF_ALLOWUNDO | FOF_NOCONFIRMATION | FOF_NOERRORUI | FOF_SILENT
+        fileop.fAnyOperationsAborted = False
+        fileop.hNameMappings = 0
+        fileop.lpszProgressTitle = None
+        
+        # Execute the operation
+        result = shell32.SHFileOperationW(ctypes.byref(fileop))
+        if result != 0:  # Non-zero means error
+            print(f"SHFileOperationW failed with error code: {result}")
+            return False
+        return True
+        
+    except Exception as e:
+        print(f"Error moving to recycle bin: {e}")
+        return False
 
 # Constants
 VERBOSE = False  # Set to True for more detailed output
@@ -47,27 +114,7 @@ if not is_admin():
 from urllib.parse import urljoin
 from win32com.client import Dispatch
 
-def get_processes_using_db():
-    """Find all processes that have a lock on the hydra-db."""
-    processes = []
-    try:
-        for proc in psutil.process_iter(['pid', 'name', 'exe', 'open_files']):
-            try:
-                if not proc.info['open_files']:
-                    continue
-                for f in proc.info['open_files']:
-                    if 'hydra-db' in f.path.lower():
-                        processes.append(proc)
-                        break  # No need to check other files for this process
-            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
-                continue
-    except Exception as e:
-        print(f"Warning: Could not scan processes: {e}")
-    return processes
-
-# Hydra DB Configuration
-HYDRA_DB_PATH = Path(os.getenv('APPDATA')) / 'hydralauncher' / 'hydra-db'
-RESTART_HYDRA = True
+RESTART_HYDRA = False  # Kept for compatibility but not used
 
 # optional dependency; fallback to urllib
 try:
@@ -438,150 +485,9 @@ def resolve_shortcut(lnk_path):
         return None
 
 def update_hydra_db(game_name, install_dir):
-    """Update Hydra's database with the game's executable path."""
-    print(f"Updating Hydra DB for {game_name}...")
-    
-    # Find all processes using the DB and get their info
-    db_processes = get_processes_using_db()
-    processes_info = []
-    
-    for proc in db_processes:
-        try:
-            proc_info = {
-                'process': proc,
-                'exe': proc.info['exe'],
-                'name': proc.info['name']
-            }
-            processes_info.append(proc_info)
-            print(f"Found process using hydra-db: {proc.info['name']} (PID: {proc.pid})")
-        except Exception as e:
-            print(f"Could not get process info for PID {proc.pid}: {e}")
-    
-    # Find the main Hydra executable path (prioritize Hydra.exe over hydra-python-rpc.exe)
-    hydra_path = None
-    for proc_info in processes_info:
-        proc_name = proc_info.get('name', '').lower()
-        proc_exe = proc_info.get('exe', '')
-        if 'hydra.exe' in proc_name:
-            hydra_path = proc_exe
-            break
-        elif 'hydra-python-rpc.exe' in proc_name and not hydra_path:
-            # Fallback to rpc exe if main exe not found
-            hydra_path = proc_exe
-    
-    # Find launch shortcut
-    launch_shortcut = None
-    for ext in ('*.lnk', '*.exe'):
-        for path in install_dir.glob(f"**/{ext}"):
-            if path.suffix == '.lnk':
-                exe_path = resolve_shortcut(path)
-                if exe_path and os.path.exists(exe_path):
-                    launch_shortcut = Path(exe_path)
-                    break
-            elif path.is_file():
-                launch_shortcut = path
-                break
-        if launch_shortcut:
-            break
-    
-    if not launch_shortcut:
-        print(f"No executable found in {install_dir}")
-        return False
-    
-    # Track processes to restart later
-    processes_to_restart = []
-    
-    # Close all processes using the DB gracefully
-    if db_processes:
-        print("Requesting processes to close gracefully...")
-        for proc in db_processes:
-            try:
-                proc_info = {
-                    'pid': proc.pid,
-                    'name': proc.info.get('name', 'unknown'),
-                    'exe': proc.info.get('exe', ''),
-                    'cwd': proc.cwd() if hasattr(proc, 'cwd') else None,
-                    'cmdline': proc.cmdline() if hasattr(proc, 'cmdline') else None
-                }
-                print(f"Requesting process to close: {proc_info['name']} (PID: {proc_info['pid']})")
-                processes_to_restart.append(proc_info)
-                
-                # Try to close gracefully first
-                try:
-                    proc.terminate()
-                except (psutil.NoSuchProcess, psutil.AccessDenied) as e:
-                    print(f"Could not request process {proc.pid} to close: {e}")
-                    continue
-                
-            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess) as e:
-                print(f"Could not access process {proc.pid}: {e}")
-        
-        # Wait for processes to terminate with a longer timeout
-        print("Waiting for processes to close gracefully (max 60 seconds)...")
-        gone, alive = psutil.wait_procs(db_processes, timeout=60)
-        
-        if alive:
-            print("Warning: The following processes did not close gracefully:")
-            for proc in alive:
-                try:
-                    print(f"- {proc.name()} (PID: {proc.pid}) - State: {proc.status()}")
-                except:
-                    print(f"- Unknown process (PID: {proc.pid})")
-            print("Please close these processes manually and try again.")
-            return False
-    
-    try:
-        # Repair and open DB
-        print("Repairing LevelDB...")
-        plyvel.repair_db(str(HYDRA_DB_PATH))
-        
-        db = plyvel.DB(str(HYDRA_DB_PATH), create_if_missing=False)
-        updated = False
-        
-        # Update matching game entries
-        for key, value in db:
-            try:
-                data = json.loads(value.decode('utf-8'))
-                if data.get("title") == game_name:
-                    print(f"Updating {game_name} path to {launch_shortcut}")
-                    data["executablePath"] = str(launch_shortcut)
-                    db.put(key, json.dumps(data).encode('utf-8'))
-                    updated = True
-            except Exception as e:
-                print(f"Error processing DB entry: {e}")
-        
-        db.close()
-        
-        # Restart all processes that were closed
-        if RESTART_HYDRA and processes_to_restart:
-            print("Restarting Hydra processes...")
-            for proc_info in processes_to_restart:
-                try:
-                    exe_path = proc_info['exe']
-                    if not exe_path or not os.path.exists(exe_path):
-                        print(f"Skipping restart for {proc_info['name']} - executable not found")
-                        continue
-                        
-                    # Get working directory
-                    cwd = proc_info.get('cwd') or os.path.dirname(exe_path)
-                    if not os.path.exists(cwd):
-                        cwd = os.path.dirname(exe_path)
-                    
-                    print(f"Restarting process: {proc_info['name']} ({exe_path})")
-                    # Start the process with original working directory if available
-                    subprocess.Popen(
-                        f'start "" "{exe_path}"',
-                        shell=True,
-                        cwd=cwd,
-                        start_new_session=True
-                    )
-                except Exception as e:
-                    print(f"Error restarting process {proc_info.get('name', 'unknown')}: {e}")
-        
-        return updated
-    except Exception as e:
-        print(f"Error updating Hydra DB: {e}")
-        return False
+    """Placeholder function for Hydra DB updates (disabled)."""
+    print(f"Hydra DB updates are disabled. Skipping update for {game_name}")
+    return True
 
 SUCCESS_PATTERNS = re.compile(r'Installation process succeeded\.|setup finished|installation completed|setup successful|installed successfully|completed successfully', re.I)
 
@@ -618,9 +524,8 @@ def run_installer_with_log_and_check(exe_path: Path, install_dir: Path):
             if SUCCESS_PATTERNS.search(log_text):
                 success = True
                 reason = "log explicitly indicates success"
-                # Update Hydra DB after successful installation
-                game_name = install_dir.name
-                update_hydra_db(game_name, install_dir)
+                # Hydra DB updates are disabled
+                print(f"Installation completed for {install_dir.name}")
             else:
                 success = False
                 reason = "log does not indicate success"
@@ -658,137 +563,226 @@ def run_installer_with_log_and_check(exe_path: Path, install_dir: Path):
         tail_lines = lines[-10:]
     return success, exit_code, log_path, (head_lines, tail_lines), reason
 
+# ---- Metadata handling ----
+METADATA_FILE = Path("_databases/gogdb/gogdb_meta.json")
+
+def load_metadata():
+    """Load installation metadata from file."""
+    if METADATA_FILE.exists():
+        try:
+            with open(METADATA_FILE, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"Warning: Could not load metadata: {e}")
+    return {}
+
+def save_metadata(metadata):
+    """Save installation metadata to file."""
+    try:
+        METADATA_FILE.parent.mkdir(parents=True, exist_ok=True)
+        with open(METADATA_FILE, 'w', encoding='utf-8') as f:
+            json.dump(metadata, f, indent=2)
+    except Exception as e:
+        print(f"Warning: Could not save metadata: {e}")
+
+def get_installer_info(installer_path):
+    """Get modification time and size of an installer file."""
+    try:
+        stat = installer_path.stat()
+        return {
+            'mtime': stat.st_mtime,
+            'size': stat.st_size,
+            'path': str(installer_path)
+        }
+    except Exception as e:
+        print(f"Warning: Could not get installer info for {installer_path}: {e}")
+        return None
+
 # ---- Process folder ----
 def process_folder(folder: Path):
-    softwares = []
-    for exe in sorted(folder.glob("*.exe")):
-        extracted_name, gid = query_innoextract(exe)
-        prod = read_product_json_for_gid(gid) if gid else None
-        softwares.append({
-            "exe": exe.name,
-            "exe_path": exe,
-            "extracted_name": extracted_name,
-            "gid": gid,
-            "product": prod
-        })
+    """Process a single game folder."""
+    try:
+        print(f"\nProcessing folder: {folder.name}")
+        softwares = []
+        for exe in sorted(folder.glob("*.exe")):
+            extracted_name, gid = query_innoextract(exe)
+            prod = read_product_json_for_gid(gid) if gid else None
+            softwares.append({
+                "exe": exe.name,
+                "exe_path": exe,
+                "extracted_name": extracted_name,
+                "gid": gid,
+                "product": prod
+            })
 
-    if not softwares:
-        print(f"⚠️ No EXE installers found in {folder.name}")
-        return
-
-    main_idx, reason = pick_main_software(folder.name, softwares)
-
-    rows = []
-    for idx, s in enumerate(softwares):
-        prod = s.get("product") or {}
-        prod_type = s.get("product_type") or prod.get("type") or None
-        prod_title = s.get("product_title") or prod.get("title") or None
-        type_label = normalize_type(prod_type)
-        name = prod_title or s.get("extracted_name") or "<unknown name>"
-        gid = s.get("gid") or "<no GOG ID>"
-        local_file = s.get("exe")
-        if idx == main_idx:
-            type_label = type_label + " *"
-        rows.append((type_label, name, gid, local_file))
-
-    header_type = "Type"
-    header_name = "Name"
-    header_gid = "GOG ID"
-    header_file = "Local File"
-
-    type_w = max(len(header_type), max(len(r[0]) for r in rows))
-    name_w = max(len(header_name), max(len(r[1]) for r in rows))
-    gid_w = max(len(header_gid), max(len(r[2]) for r in rows))
-    file_w = max(len(header_file), max(len(r[3]) for r in rows))
-
-    print(f"\n📦 Folder: {folder.name}")
-    print(f"  {header_type:<{type_w}} | {header_name:<{name_w}} | {header_gid:<{gid_w}} | {header_file}")
-    print(f"  {'-'*type_w} | {'-'*name_w} | {'-'*gid_w} | {'-'*file_w}")
-
-    for t, n, g, f in rows:
-        print(f"  {t:<{type_w}} | {n:<{name_w}} | {g:<{gid_w}} | {f}")
-
-    main_item = softwares[main_idx]
-    prod = main_item.get("product") or {}
-    product_title = prod.get("title") or main_item.get("extracted_name") or "Unknown Game"
-    folder_name = sanitize_filename(product_title)
-    target_dir = BASE_DIR / folder_name
-
-    print(f"\nmain detection reason: {reason}")
-    print(f'Installing game "{product_title}" to: "{target_dir}"')
-
-    # --- Main installer check: launch shortcut ---
-    launch_shortcut = target_dir / f"Launch {product_title}.lnk"
-    if target_dir.exists():
-        if launch_shortcut.exists():
-            print(f'Game "{product_title}" appears already installed (launch shortcut found). Skipping main install.')
-            main_success = True
-        else:
-            print(f'Warning: "{target_dir}" exists but launch shortcut missing. Deleting folder to reinstall.')
-            try:
-                shutil.rmtree(target_dir)
-            except Exception as e:
-                print(f"Error deleting folder: {e}")
-            main_success = False
-    else:
-        main_success = False
-    # --- End main installer check ---
-
-    if not main_success:
-        main_exe_path = main_item.get("exe_path")
-        main_success, exit_code, log_path, snippets, log_reason = run_installer_with_log_and_check(main_exe_path, target_dir)
-        print(f"Main installer result: success={main_success} (exit_code={exit_code}) - {log_reason}")
-        print(f"Log file: {log_path}")
-        if not main_success:
-            head, tail = snippets
-            if head:
-                print("\n--- Log head ---")
-                print("\n".join(head))
-            if tail:
-                print("\n--- Log tail ---")
-                print("\n".join(tail))
-            print("Aborting DLC installs.")
+        if not softwares:
+            print(f"⚠️ No EXE installers found in {folder.name}")
             return
+
+        main_idx, reason = pick_main_software(folder.name, softwares)
+
+        rows = []
+        for idx, s in enumerate(softwares):
+            prod = s.get("product") or {}
+            prod_type = s.get("product_type") or prod.get("type") or None
+            prod_title = s.get("product_title") or prod.get("title") or None
+            type_label = normalize_type(prod_type)
+            name = prod_title or s.get("extracted_name") or "<unknown name>"
+            gid = s.get("gid") or "<no GOG ID>"
+            local_file = s.get("exe")
+            if idx == main_idx:
+                type_label = type_label + " *"
+            rows.append((type_label, name, gid, local_file))
+
+        header_type = "Type"
+        header_name = "Name"
+        header_gid = "GOG ID"
+        header_file = "Local File"
+
+        type_w = max(len(header_type), max(len(r[0]) for r in rows))
+        name_w = max(len(header_name), max(len(r[1]) for r in rows))
+        gid_w = max(len(header_gid), max(len(r[2]) for r in rows))
+        file_w = max(len(header_file), max(len(r[3]) for r in rows))
+
+        print(f"\n📦 Folder: {folder.name}")
+        print(f"  {header_type:<{type_w}} | {header_name:<{name_w}} | {header_gid:<{gid_w}} | {header_file}")
+        print(f"  {'-'*type_w} | {'-'*name_w} | {'-'*gid_w} | {'-'*file_w}")
+
+        for t, n, g, f in rows:
+            print(f"  {t:<{type_w}} | {n:<{name_w}} | {g:<{gid_w}} | {f}")
+
+        main_item = softwares[main_idx]
+        prod = main_item.get("product") or {}
+        product_title = prod.get("title") or main_item.get("extracted_name") or "Unknown Game"
+        folder_name = sanitize_filename(product_title)
+        target_dir = BASE_DIR / folder_name
+
+        print(f"\nmain detection reason: {reason}")
+        print(f'Installing game "{product_title}" to: "{target_dir}"')
+
+        # --- Main installer check: version and modification time ---
+        main_exe_path = main_item.get("exe_path")
+        metadata = load_metadata()
+        game_id = main_item.get("gid") or folder.name
+        current_installer = get_installer_info(main_exe_path)
+        
+        if target_dir.exists():
+            previous_install = metadata.get(game_id, {})
+            
+            # Check if we have metadata for this game
+            if current_installer and 'installer' in previous_install:
+                prev_installer = previous_install['installer']
+                
+                # Check if the current installer is newer than the installed one
+                if current_installer['mtime'] > prev_installer.get('mtime', 0):
+                    print(f'Newer version of "{product_title}" found. Moving old installation to recycle bin.')
+                    if move_to_recycle_bin(str(folder)):
+                        print(f"Moved old installer folder to recycle bin: {folder.name}")
+                        main_success = False
+                    else:
+                        print(f"Warning: Could not move folder to recycle bin: {folder}")
+                        main_success = True  # Skip if we can't move to recycle bin
+                else:
+                    print(f'Game "{product_title}" is already installed with this or a newer version. Moving installer to recycle bin.')
+                    if move_to_recycle_bin(str(folder)):
+                        print(f"Moved installer folder to recycle bin: {folder.name}")
+                    else:
+                        print(f"Warning: Could not move installer folder to recycle bin: {folder}")
+                    main_success = True
+            else:
+                # Fall back to checking launch shortcut if no metadata exists
+                launch_shortcut = target_dir / f"Launch {product_title}.lnk"
+                if launch_shortcut.exists():
+                    print(f'Game "{product_title}" appears already installed (launch shortcut found).')
+                    print('Note: Installer metadata not found. Consider reinstalling to enable version tracking.')
+                    main_success = True
+                else:
+                    print(f'Warning: "{target_dir}" exists but no valid installation found. Deleting folder to reinstall.')
+                    try:
+                        shutil.rmtree(target_dir)
+                        main_success = False
+                    except Exception as e:
+                        print(f"Error deleting folder: {e}")
+                        main_success = True  # Skip if we can't delete
         else:
-            print("Main installer succeeded (per log analysis).")
+            main_success = False
+        # --- End main installer check ---
 
-    # --- Supplemental/DLC installers: skip if log exists ---
-    all_dlc_success = True
-    for idx, s in enumerate(softwares):
-        if idx == main_idx:
-            continue
+        if not main_success:
+            main_exe_path = main_item.get("exe_path")
+            main_success, exit_code, log_path, snippets, log_reason = run_installer_with_log_and_check(main_exe_path, target_dir)
+            print(f"Main installer result: success={main_success} (exit_code={exit_code}) - {log_reason}")
+            print(f"Log file: {log_path}")
+            
+            if main_success and current_installer:
+                # Update metadata with new installation info
+                metadata = load_metadata()
+                metadata[game_id] = {
+                    'installer': current_installer,
+                    'install_date': time.time(),
+                    'install_dir': str(target_dir),
+                    'product_title': product_title
+                }
+                save_metadata(metadata)
+                print(f"Updated installation metadata for {product_title}")
+            
+            if not main_success:
+                head, tail = snippets
+                if head:
+                    print("\n--- Log head ---")
+                    print("\n".join(head))
+                if tail:
+                    print("\n--- Log tail ---")
+                    print("\n".join(tail))
+                print("Aborting DLC installs.")
+                return
+            else:
+                print("Main installer succeeded (per log analysis).")
 
-        log_path = target_dir / f"{s['exe_path'].stem}.log"
-        if log_path.exists():
-            print(f"\nSkipping supplemental: {s['exe']} (log already exists, assuming installed)")
-            continue
+            # --- Supplemental/DLC installers: skip if log exists ---
+            all_dlc_success = True
+            for idx, s in enumerate(softwares):
+                if idx == main_idx:
+                    continue
 
-        print(f"\nInstalling supplemental: {s['exe']} into \"{target_dir}\"")
-        ok, ec, log_path, snippets, log_reason = run_installer_with_log_and_check(s['exe_path'], target_dir)
-        print(f"Supplement installer result: success={ok} (exit_code={ec}) - {log_reason}")
-        print(f"Log file: {log_path}")
-        if not ok:
-            all_dlc_success = False
-            head, tail = snippets
-            if head:
-                print("\n--- Log head ---")
-                print("\n".join(head))
-            if tail:
-                print("\n--- Log tail ---")
-                print("\n".join(tail))
-            print("Continuing with next supplemental installer.")
-        else:
-            print(f"Installed {s['exe']} successfully.")
+                log_path = target_dir / f"{s['exe_path'].stem}.log"
+                if log_path.exists():
+                    print(f"\nSkipping supplemental: {s['exe']} (log already exists, assuming installed)")
+                    continue
 
-    # --- Delete installer folder if main + all DLC succeeded ---
-    if main_success and all_dlc_success:
-        try:
-            print(f"\nAll installers succeeded. Deleting installer folder: {folder}")
-            shutil.rmtree(folder)
-        except Exception as e:
-            print(f"Error deleting installer folder: {e}")
+                print(f"\nInstalling supplemental: {s['exe']} into \"{target_dir}\"")
+                ok, ec, log_path, snippets, log_reason = run_installer_with_log_and_check(s['exe_path'], target_dir)
+                print(f"Supplement installer result: success={ok} (exit_code={ec}) - {log_reason}")
+                print(f"Log file: {log_path}")
+                if not ok:
+                    all_dlc_success = False
+                    head, tail = snippets
+                    if head:
+                        print("\n--- Log head ---")
+                        print("\n".join(head))
+                    if tail:
+                        print("\n--- Log tail ---")
+                        print("\n".join(tail))
+                    print("Continuing with next supplemental installer.")
+                else:
+                    print(f"Installed {s['exe']} successfully.")
 
-    print()
+                    print()
+            
+            # --- Delete installer folder if main + all DLC succeeded ---
+            if main_success and all_dlc_success:
+                try:
+                    print(f"\nAll installers succeeded. Deleting installer folder: {folder}")
+                    shutil.rmtree(folder)
+                except Exception as e:
+                    print(f"Error deleting installer folder: {e}")
+                print()
+    except Exception as e:
+        print(f"Error processing folder {folder}: {e}")
+    finally:
+        # Ensure we return to watching state
+        print("Returning to watch mode...")
+        print()
 
 # ---- Watcher with debouncing ----
 from collections import defaultdict
@@ -824,28 +818,45 @@ class GameFolderHandler(FileSystemEventHandler):
         # Catch newly written .url files in existing folder
         self.handle_folder(Path(event.src_path).parent)
 
-def scan_existing(path: Path):
-    for folder in sorted(path.iterdir()):
-        if folder.is_dir() and FOLDER_PATTERN.match(folder.name):
-            if (folder / REQUIRED_FILE).is_file():
-                print(f"[EXISTING MATCH] {folder.name}")
-                process_folder(folder)
-            else:
-                print(f"[IGNORED] {folder.name} (missing required .url file)")
+# Removed scan_existing function as its functionality is now in watch_directory
 
 def watch_directory(path: Path):
-    scan_existing(path)
+    # First, scan existing folders
     event_handler = GameFolderHandler()
+    
+    # Set up the observer
     observer = Observer()
     observer.schedule(event_handler, str(path), recursive=True)  # recursive ensures nested events captured
-    observer.start()
+    
     print(f"📂 Watching for game folders in: {path.resolve()}")
+    print("Press Ctrl+C to stop watching...\n")
+    
     try:
-        while True:
+        # Start the observer first to catch new events
+        observer.start()
+        
+        # Then scan existing folders (this will process them one by one)
+        for folder in sorted(path.iterdir()):
+            if folder.is_dir() and FOLDER_PATTERN.match(folder.name):
+                if (folder / REQUIRED_FILE).is_file():
+                    print(f"[FOUND EXISTING] {folder.name}")
+                    event_handler.handle_folder(folder)
+                else:
+                    print(f"[IGNORED] {folder.name} (missing required .url file)")
+        
+        # Keep the main thread alive
+        while observer.is_alive():
             time.sleep(1)
+            
     except KeyboardInterrupt:
-        observer.stop()
-    observer.join()
+        print("\nStopping watcher...")
+    except Exception as e:
+        print(f"Error in watch loop: {e}")
+    finally:
+        if observer.is_alive():
+            observer.stop()
+            observer.join()
+        print("Watcher stopped.")
 
 
 # ---- Main ----
