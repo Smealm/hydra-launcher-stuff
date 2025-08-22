@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-game_watcher_with_gogdb_pretty.py
+gog-games.watcher.py
 
 Watches the current directory for game-... folders, requires the .url file,
 runs innoextract on EXEs, uses local GOGDB product JSON to determine main vs sub,
