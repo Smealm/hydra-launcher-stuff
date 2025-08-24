@@ -214,6 +214,20 @@ def phase3_process(game_folder, parent_folder):
             if patterns_found:
                 break
 
+    # -----------------------
+    # Fallback: single EXE detection
+    # -----------------------
+    if not steam_game_name:
+        exe_files = [f for f in os.listdir(game_folder) if f.lower().endswith(".exe")]
+        if len(exe_files) == 1:
+            exe_name = os.path.splitext(exe_files[0])[0]
+            steam_game_name = exe_name
+            patterns_found = True
+            tqdm.write(f"[Phase 3] Fallback EXE detected -> Using '{exe_name}' as game name")
+
+    # -----------------------
+    # Rename folder if name found
+    # -----------------------
     if patterns_found and steam_game_name and os.path.basename(game_folder) != steam_game_name:
         new_path = os.path.join(os.path.dirname(game_folder), steam_game_name)
         try:
