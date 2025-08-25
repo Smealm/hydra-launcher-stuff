@@ -60,7 +60,3 @@ The script operates in several phases:
 - Ensure all dependencies are installed
 - Run the script with administrator privileges if you encounter permission issues
 - Check that the watched directory exists and is accessible
-
-## License
-
-[Specify your license here]
