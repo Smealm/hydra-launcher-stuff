@@ -1,0 +1,5 @@
+watchdog==3.0.0
+tqdm==4.66.1
+psutil==5.9.5
+pywin32==306
+pyinstaller==5.13.2
