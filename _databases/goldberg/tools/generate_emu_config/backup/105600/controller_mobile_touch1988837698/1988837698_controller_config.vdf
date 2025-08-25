@@ -1,0 +1,532 @@
+"controller_mappings"
+{
+	"version"		"3"
+	"revision"		"87"
+	"title"		"#Library_ControllerSaveDefaultTitle"
+	"description"		"#Library_ControllerSaveDefaultDescription"
+	"creator"		"76561197978266558"
+	"controller_type"		"controller_mobile_touch"
+	"major_revision"		"0"
+	"minor_revision"		"0"
+	"Timestamp"		"1580862255"
+	"touch_layout"		"0ac00410012218080010011d0000703d255555d53d2d0000803f350000803f2218080110011d6666fe3e255555d53d2d0000803f350000803f2218080210011d0000203e25abaa3a3f2d0000803f350000803f2218080310011d0000703d25f4495f3f2d0000803f350000803f2204080410002218080510011dc4c8813e254a9f043f2d0000803f350000803f2218080610011d0000203e2548d6b93e2d20b7423f3520b7423f2218080710011da99c5e3f25a9e13f3f2d0000803f350000803f2218080810011d0000713f25a9e13f3f2d0000803f350000803f2218080910011d69544a3f25a9e13f3f2d0000803f350000803f2218080a10011d0000703d254a9f043f2d0000803f350000803f2218080b10011d6666ce3e255555d53d2d0000803f350000803f2218080c10011d3333173f255555d53d2d0000803f350000803f2218080d10011d0000713f252fa11d3f2d0000803f350000803f2218080e10011d0000713f25306af83e2d0000803f350000803f2218080f10011d83ac5e3f251cc7b13e2d0000803f350000803f2218081010011d0000713f251cc7b13e2d0000803f350000803f2218081110011d83ac5e3f255555d53d2d0000803f350000803f2218081210011d3333173f25f4495f3f2d0000803f350000803f2218081310011d6666fe3e25f4495f3f2d0000803f350000803f2218081c10011d0000713f255555d53d2d0000803f350000803f2218081d10011d0000703d255d79803e2d0000803f350000803f2a140d0000803f150000803f1d0000803f250000003f0aee0410002218080010011d0000703d25ac73253e2d0000803f350000803f2218080110011d0000713f25ac73253e2d417a5a3f35417a5a3f2218080210011d4f853d3e251b11423f2d0000803f350000803f2218080310011d0000703d25fda0063f2d0000803f350000803f2218080410011d4571523f259999193f2d4bf5493f354bf5493f2218080510011d0000703d2541b22e3f2d0000803f350000803f2218080610011d4f853d3e259e2bcf3e2d55764c3f3555764c3f2218080710011d64fb5c3f252c0f583f2d9fe2923f359fe2923f2218080810011d0000713f252c0f583f2d9fe2923f359fe2923f2218080910011d134a483f252c0f583f2d9fe2923f359fe2923f2218080a10011d0000703d25166cc13e2d0000803f350000803f2218080b10011d0000703d255f9c883e2d0000803f350000803f2218080c10011d0000713f255f9c883e2d0000803f350000803f2218080d10011d0000713f2541b22e3f2d0000803f350000803f2218080e10011d0000713f25fda0063f2d0000803f350000803f2218080f10011d64fb5c3f25166cc13e2d0000803f350000803f2218081010011d0000713f25166cc13e2d0000803f350000803f2218081110011d4738513f25ac73253e2d87953c3f3587953c3f2218081210011d9a1c063f252c0f583f2d87953c3f3587953c3f2218081310011d0494f23e252c0f583f2d87953c3f3587953c3f2218081510011d59c09d3e2541b22e3f2d0000803f350000803f2218081c10011daf8c5e3f25ac73253e2d87953c3f3587953c3f2218081d10011d963a433f25ac73253e2dce6e3f3f35ce6e3f3f2a140d0000803f150000803f1d0000803f2566c5003f100318012801"
+	"localization"
+	{
+		"english"
+		{
+			"title"		"Mouse trackpad"
+			"description"		"This template works great for the games on Steam that were designed for trackpad interaction"
+		}
+		"koreana"
+		{
+			"title"		"마우스 트랙패드"
+			"description"		"이 템플릿은 Steam에 있는 게임 중 트랙패드 조작을 위해 설계된 게임에서 유용합니다."
+		}
+		"tchinese"
+		{
+			"title"		"滑鼠觸控板"
+			"description"		"此模板適用於 Steam 上設計來利用觸控板互動的遊戲"
+		}
+		"schinese"
+		{
+			"title"		"鼠标触控板"
+			"description"		"此模板适用于 Steam 上触控板互动类游戏。"
+		}
+		"czech"
+		{
+			"title"		"Trackpad"
+			"description"		"Tato šablona je pro hry ve službě Steam, které byly vytvořeny pro ovládání trackpadem."
+		}
+		"bulgarian"
+		{
+			"title"		"Мишка тракпад"
+			"description"		"Този шаблон върши добра работа при игри в Steam, които са били проектирани за взаимодействие с тракпад."
+		}
+		"greek"
+		{
+			"title"		"Επι. αφής ποντικού"
+			"description"		"Αυτό το πρότυπο λειτουργεί υπέροχα για τα παιχνίδια στο Steam που σχεδιάστηκαν για αλληλεπίδραση επιφάνειας αφής"
+		}
+		"german"
+		{
+			"title"		"Maus-Trackpad"
+			"description"		"Diese Vorlage eignet sich besonders gut für Spiele auf Steam, die für Interaktionen per Trackpad entworfen wurden"
+		}
+		"hungarian"
+		{
+			"title"		"Egér-trackpad"
+			"description"		"Ez a sablon remekül működik azokkal a Steames játékokkal, amelyek trackpades vezérléshez készültek."
+		}
+		"french"
+		{
+			"title"		"Pavé tactile (souris)"
+			"description"		"Ce modèle fonctionne très bien pour les jeux sur Steam qui ont été conçus pour les pavés tactiles."
+		}
+		"polish"
+		{
+			"title"		"Panel dotykowy jako mysz"
+			"description"		"Ten szablon świetnie działa dla gier na Steam, które zostały zaprojektowane z myślą o panelu dotykowym."
+		}
+		"turkish"
+		{
+			"title"		"Fare yön kumandası"
+			"description"		"Bu şablon, yön kumandası etkileşimi için tasarlanan Steam oyunlarında çok işe yarar."
+		}
+		"swedish"
+		{
+			"title"		"Trackpad för mus"
+			"description"		"Denna mall fungerar utmärkt för spel på Steam som har designats för trackpad-interaktion"
+		}
+		"thai"
+		{
+			"title"		"แทร็คแพดเมาส์"
+			"description"		"แม่แบบนี้ทำงานได้ดีสำหรับเกมบน Steam ที่ถูกออกแบบมาสำหรับการโต้ตอบแบบแทร็คแพด"
+		}
+		"spanish"
+		{
+			"title"		"Panel táctil (trackpad)"
+			"description"		"Esta plantilla funciona muy bien con los juegos de Steam que han sido diseñados para la interacción con un panel táctil (trackpad)"
+		}
+		"latam"
+		{
+			"title"		"Trackpad del mouse"
+			"description"		"Esta plantilla funciona muy bien con los juegos de Steam que fueron diseñados para la interacción con el trackpad"
+		}
+		"romanian"
+		{
+			"title"		"Trackpad de mouse"
+			"description"		"Șablonul acesta funcționează minunat cu jocurile de pe Steam care au fost create pentru interacțiuni în care trebuie folosești un trackpad"
+		}
+		"russian"
+		{
+			"title"		"Управление мышью-трекпадом"
+			"description"		"Этот шаблон подходит для игр в Steam, которые разрабатывались для управления трекпадом"
+		}
+		"finnish"
+		{
+			"title"		"Hiiren kosketuslevy"
+			"description"		"Malli sopii erityisesti kosketuslevyllä käytettäviksi suunniteltuihin Steam-peleihin"
+		}
+		"ukrainian"
+		{
+			"title"		"Сенсорна панель"
+			"description"		"Цей шаблон чудово працює з іграми у Steam, які розроблені для взаємодії із сенсорною панеллю"
+		}
+		"norwegian"
+		{
+			"title"		"Mus – styreplate"
+			"description"		"Denne malen fungerer bra for spillene på Steam, som ble utformet for interaksjoner med styreplate."
+		}
+		"japanese"
+		{
+			"title"		"マウストラックパッド"
+			"description"		"このテンプレートはトラックパッドを想定してデザインされたSteamのゲームに最適です"
+		}
+		"vietnamese"
+		{
+			"title"		"Bàn cảm ứng chuột"
+			"description"		"Bản đồ phím mẫu này rất phù hợp với các trò chơi trên Steam được thiết kế dành cho tương tác cảm ứng"
+		}
+		"brazilian"
+		{
+			"title"		"Trackpad"
+			"description"		"Este modelo é ótimo para jogos no Steam que se baseiam em interações com o trackpad"
+		}
+		"danish"
+		{
+			"title"		"Musetrackpad"
+			"description"		"Denne skabelon er god til spil på Steam, som er designet til trackpad-interaktioner"
+		}
+		"italian"
+		{
+			"title"		"Trackpad del mouse"
+			"description"		"Questo template è ideale per i giochi su Steam che sono stati progettati per l'interazione tramite trackpad"
+		}
+		"dutch"
+		{
+			"title"		"Muis – trackpad"
+			"description"		"Dit sjabloon werkt goed bij spellen op Steam die ontworpen zijn voor interacties met een trackpad"
+		}
+		"portuguese"
+		{
+			"title"		"Rato - Trackpad"
+			"description"		"Este modelo é indicado para jogos no Steam concebidos para interações com o trackpad."
+		}
+	}
+	"group"
+	{
+		"id"		"1"
+		"mode"		"trigger"
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button TRIGGER_LEFT, Jump"
+						}
+						"settings"
+						{
+							"haptic_intensity"		"2"
+						}
+					}
+				}
+			}
+		}
+		"settings"
+		{
+			"adaptive_threshold"		"0"
+		}
+	}
+	"group"
+	{
+		"id"		"2"
+		"mode"		"trigger"
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button TRIGGER_RIGHT, Use Item"
+						}
+						"settings"
+						{
+							"haptic_intensity"		"2"
+						}
+					}
+				}
+			}
+		}
+		"settings"
+		{
+			"adaptive_threshold"		"0"
+		}
+	}
+	"group"
+	{
+		"id"		"3"
+		"mode"		"dpad"
+		"inputs"
+		{
+			"dpad_north"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_UP"
+						}
+					}
+				}
+			}
+			"dpad_south"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_DOWN"
+						}
+					}
+				}
+			}
+			"dpad_east"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_RIGHT"
+						}
+					}
+				}
+			}
+			"dpad_west"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_LEFT"
+						}
+					}
+				}
+			}
+		}
+		"settings"
+		{
+			"requires_click"		"0"
+		}
+	}
+	"group"
+	{
+		"id"		"4"
+		"mode"		"joystick_move"
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_LEFT, Auto Select"
+						}
+					}
+				}
+			}
+		}
+		"settings"
+		{
+			"deadzone_shape"		"1"
+		}
+	}
+	"group"
+	{
+		"id"		"5"
+		"mode"		"joystick_move"
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_RIGHT, Smart Cursor"
+						}
+					}
+				}
+			}
+			"edge"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button TRIGGER_RIGHT, Use Item"
+						}
+					}
+				}
+			}
+		}
+		"settings"
+		{
+			"edge_binding_radius"		"16385"
+			"deadzone_shape"		"1"
+		}
+	}
+	"group"
+	{
+		"id"		"6"
+		"mode"		"four_buttons"
+		"inputs"
+		{
+			"button_a"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button A, Quick Mount"
+						}
+					}
+				}
+			}
+			"button_b"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button B, Interact / Grapple"
+						}
+					}
+				}
+			}
+			"button_x"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button X, Lock On"
+						}
+					}
+				}
+			}
+			"button_y"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button Y, Inventory"
+						}
+					}
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"0"
+		"mode"		"switches"
+		"inputs"
+		{
+			"button_escape"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button START, Toggle Full Map"
+						}
+					}
+				}
+			}
+			"button_menu"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button SELECT, Toggle Map Style"
+						}
+					}
+				}
+			}
+			"left_bumper"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button SHOULDER_LEFT, Hotbar Cycle Left"
+						}
+					}
+				}
+			}
+			"right_bumper"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button SHOULDER_RIGHT, Hotbar Cycle Right"
+						}
+					}
+				}
+			}
+			"button_macro0"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press RETURN, Chat, ghost_110_social_0150.png #939393 #E4E4E4"
+						}
+					}
+				}
+			}
+			"button_macro1"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press EQUALS, Zoom In, ghost_040_act_0321a.png #939393 #E4E4E4"
+						}
+					}
+				}
+			}
+			"button_macro2"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press DASH, Zoom Out, ghost_040_act_0321.png #939393 #E4E4E4"
+						}
+					}
+				}
+			}
+			"button_macro4"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button TRIGGER_RIGHT, Use Item"
+						}
+					}
+				}
+			}
+		}
+	}
+	"preset"
+	{
+		"id"		"0"
+		"name"		"Default"
+		"group_source_bindings"
+		{
+			"0"		"switch active"
+			"1"		"left_trigger active"
+			"2"		"right_trigger active"
+			"4"		"joystick active"
+			"3"		"dpad active"
+			"5"		"right_joystick active"
+			"6"		"button_diamond active"
+		}
+	}
+	"settings"
+	{
+	}
+}

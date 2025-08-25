@@ -1,0 +1,62 @@
+publishedfiledetails {
+  result: 1
+  publishedfileid: 2054655430
+  creator: 76561197978266558
+  creator_appid: 241100
+  consumer_appid: 241100
+  consumer_shortcutid: 0
+  filename: "2054655430_controller_config.vdf"
+  file_size: 6900
+  preview_file_size: 0
+  file_url: "https://cdn.steamusercontent.com/ugc/1013815051542204726/6E7A605E8899F1E4D8995E7999496FE406E50C20/"
+  preview_url: ""
+  url: ""
+  hcontent_file: 1013815051542204726
+  hcontent_preview: 18446744073709551615
+  title: "#Library_ControllerSaveDefaultTitle"
+  short_description: "#Library_ControllerSaveDefaultDescription"
+  time_created: 1586464207
+  time_updated: 1586464207
+  visibility: 0
+  flags: 1536
+  workshop_file: false
+  workshop_accepted: false
+  show_subscribe_all: false
+  num_comments_public: 0
+  banned: false
+  ban_reason: ""
+  banner: 76561197960265728
+  can_be_deleted: true
+  app_name: "Steam Input Configs"
+  file_type: 12
+  can_subscribe: true
+  subscriptions: 324934
+  favorited: 0
+  followers: 0
+  lifetime_subscriptions: 324934
+  lifetime_favorited: 0
+  lifetime_followers: 0
+  views: 4
+  num_children: 0
+  num_reports: 0
+  tags {
+    tag: "hasactivators"
+    display_name: "hasactivators"
+  }
+  tags {
+    tag: "splitconfig"
+    display_name: "splitconfig"
+  }
+  tags {
+    tag: "controller_mobile_touch"
+    display_name: "controller_mobile_touch"
+  }
+  language: 0
+  lifetime_playtime: 1086568215
+  lifetime_playtime_sessions: 135949
+  maybe_inappropriate_sex: false
+  maybe_inappropriate_violence: false
+  revision_change_number: 1
+  revision: k_EPublishedFileRevision_Latest
+  ban_text_check_result: k_EBanContentCheckResult_NotScanned
+}

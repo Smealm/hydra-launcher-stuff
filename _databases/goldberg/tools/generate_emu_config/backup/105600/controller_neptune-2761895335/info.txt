@@ -1,0 +1,78 @@
+publishedfiledetails {
+  result: 1
+  publishedfileid: 2761895335
+  creator: 76561198027873806
+  creator_appid: 241100
+  consumer_appid: 241100
+  consumer_shortcutid: 0
+  filename: "2761895335_controller_config.vdf"
+  file_size: 19249
+  preview_file_size: 0
+  file_url: "https://cdn.steamusercontent.com/ugc/1821147036171683462/E8AD2B2A688ADD3223AE19BD3101AF003715EC64/"
+  preview_url: ""
+  url: ""
+  hcontent_file: 1821147036171683462
+  hcontent_preview: 18446744073709551615
+  title: "Steam Deck"
+  short_description: "Configuration created for use with the Steam Deck controller"
+  time_created: 1645564547
+  time_updated: 1645564547
+  visibility: 0
+  flags: 1536
+  workshop_file: false
+  workshop_accepted: false
+  show_subscribe_all: false
+  num_comments_public: 0
+  banned: false
+  ban_reason: ""
+  banner: 76561197960265728
+  can_be_deleted: true
+  app_name: "Steam Input Configs"
+  file_type: 12
+  can_subscribe: true
+  subscriptions: 5637962
+  favorited: 0
+  followers: 0
+  lifetime_subscriptions: 5637964
+  lifetime_favorited: 0
+  lifetime_followers: 0
+  views: 34
+  num_children: 0
+  num_reports: 0
+  tags {
+    tag: "hasactivators"
+    display_name: "hasactivators"
+  }
+  tags {
+    tag: "splitconfig"
+    display_name: "splitconfig"
+  }
+  tags {
+    tag: "feature_activator"
+    display_name: "feature_activator"
+  }
+  tags {
+    tag: "feature_mouse"
+    display_name: "feature_mouse"
+  }
+  tags {
+    tag: "feature_keboard"
+    display_name: "feature_keboard"
+  }
+  tags {
+    tag: "feature_gamepad"
+    display_name: "feature_gamepad"
+  }
+  tags {
+    tag: "controller_neptune"
+    display_name: "controller_neptune"
+  }
+  language: 0
+  lifetime_playtime: 1028637095
+  lifetime_playtime_sessions: 203208
+  maybe_inappropriate_sex: false
+  maybe_inappropriate_violence: false
+  revision_change_number: 1
+  revision: k_EPublishedFileRevision_Latest
+  ban_text_check_result: k_EBanContentCheckResult_NotScanned
+}
