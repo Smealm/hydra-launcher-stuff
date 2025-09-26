@@ -3,7 +3,7 @@ name: Daily SteamUnderground Scrape
 on:
   schedule:
     - cron: "0 0 * * *"  # Runs once daily at 00:00 UTC
-  workflow_dispatch:  # Manual trigger
+  workflow_dispatch:  # Allows manual trigger
 
 jobs:
   scrape:
@@ -29,21 +29,21 @@ jobs:
 
       # Step 4: Run the scraper
       - name: Run SteamUnderground scraper
-        id: run_scraper
-        run: |
-          python steamunderground-hydra.py
+        run: python steamunderground-hydra.py
         working-directory: "hydra sources/FMHY/steam undergound"
 
-      # Step 5: Check if JSON changed and commit only if needed
+      # Step 5: Commit and push updated JSON using PAT
       - name: Commit and push updated JSON
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}  # Use the PAT you created
         working-directory: "hydra sources/FMHY/steam undergound"
         run: |
           git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git config user.email "github-actions@users.noreply.github.com"
           git add steamunderground.json
           if ! git diff --cached --quiet; then
             git commit -m "Update steamunderground.json [skip ci]"
-            git push
+            git push https://x-access-token:${GH_PAT}@github.com/Smealm/hydra-launcher-stuff.git HEAD:main
             echo "JSON updated and pushed."
           else
             echo "No changes detected. Skipping commit."
