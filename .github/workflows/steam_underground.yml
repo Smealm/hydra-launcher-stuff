@@ -1,0 +1,50 @@
+name: Daily SteamUnderground Scrape
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # Runs once daily at 00:00 UTC
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+        working-directory: "hydra sources/FMHY/steam undergound"
+
+      # Step 4: Run the scraper
+      - name: Run SteamUnderground scraper
+        id: run_scraper
+        run: |
+          python steamunderground-hydra.py
+        working-directory: "hydra sources/FMHY/steam undergound"
+
+      # Step 5: Check if JSON changed and commit only if needed
+      - name: Commit and push updated JSON
+        working-directory: "hydra sources/FMHY/steam undergound"
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add steamunderground.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update steamunderground.json [skip ci]"
+            git push
+            echo "JSON updated and pushed."
+          else
+            echo "No changes detected. Skipping commit."
+          fi
