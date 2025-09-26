@@ -1,61 +1,61 @@
 name: Daily SteamUnderground Scrape
 
+# Run daily at 00:00 UTC, or you can trigger manually
 on:
   schedule:
-    - cron: "0 0 * * *"  # Runs daily at 00:00 UTC
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
-  scrape:
+  scrape-and-push:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout repo
+      # Step 1: Checkout the repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Set up Python
+      # Step 2: Set up Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.12
 
-      # 3. Install dependencies
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
         working-directory: "hydra sources/FMHY/steam undergound"
 
-      # 4. Run scraper
+      # Step 4: Run the scraper
       - name: Run SteamUnderground scraper
         run: |
           python steamunderground-hydra.py
         working-directory: "hydra sources/FMHY/steam undergound"
 
-      # 5. Commit to a temporary branch
-      - name: Commit changes
+      # Step 5: Commit and push the updated JSON
+      - name: Commit and push JSON
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}  # <-- You must create this secret
         run: |
+          cd "hydra sources/FMHY/steam undergound"
+
+          # Configure Git
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git checkout -b update/steamunderground || git checkout update/steamunderground
+
+          # Create a branch for the update
+          git checkout -B update/steamunderground
+
+          # Add JSON and commit if changed
           git add steamunderground.json
           if git diff --cached --quiet; then
-            echo "No changes detected."
+            echo "No changes detected. Skipping commit."
             exit 0
           fi
-          git commit -m "Update steamunderground.json [skip ci]"
-          git push --force-with-lease https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }} HEAD:update/steamunderground
 
-      # 6. Create or update pull request
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.GH_PAT }}
-          commit-message: "Update steamunderground.json [skip ci]"
-          branch: update/steamunderground
-          base: main
-          title: "Daily update: steamunderground.json"
-          body: "Automated update of steamunderground.json via GitHub Actions."
-          draft: false
-          merge-method: "merge"
+          git commit -m "Update steamunderground.json [skip ci]"
+
+          # Push using the personal access token
+          git push --force-with-lease https://x-access-token:${GH_PAT}@github.com/${GITHUB_REPOSITORY} HEAD:update/steamunderground
