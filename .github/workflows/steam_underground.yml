@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          persist-credentials: false  # Will push using PAT
+          persist-credentials: false  # We will push using PAT
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -27,12 +27,7 @@ jobs:
           pip install -r requirements.txt
         working-directory: "hydra sources/FMHY/steam undergound"
 
-      - name: Run SteamUnderground scraper
-        run: |
-          python steamunderground-hydra.py
-        working-directory: "hydra sources/FMHY/steam undergound"
-
-      - name: Push new games
+      - name: Run scraper and push updates
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
@@ -49,7 +44,7 @@ jobs:
 
           echo "$SCRAPER_OUTPUT"
 
-          # Check for the "new to scrape" pattern in output
+          # Extract number of new games
           NEW_GAMES=$(echo "$SCRAPER_OUTPUT" | grep -oP '\[INFO\] Found \d+ total games, \K\d+(?= new to scrape)')
 
           if [ "$NEW_GAMES" -gt 0 ]; then
@@ -62,3 +57,4 @@ jobs:
             git push --force https://x-access-token:${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git HEAD:main
           else
             echo "No new games detected. Skipping push."
+          fi
