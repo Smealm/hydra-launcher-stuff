@@ -14,12 +14,12 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          persist-credentials: false  # Don't use default GitHub token
+          persist-credentials: false  # We will push using PAT instead
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.12
+          python-version: "3.12"
 
       - name: Install dependencies
         run: |
@@ -41,20 +41,26 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          # Make sure we have the latest remote branch state
+          # Fetch remote branch if it exists
           git fetch origin update/steamunderground || true
 
-          # Create or switch to branch
-          git checkout -B update/steamunderground origin/update/steamunderground || git checkout -B update/steamunderground
+          # Reset to remote branch or wipe to HEAD if branch doesn't exist yet
+          git reset --hard origin/update/steamunderground || git reset --hard
 
-          # Add JSON and commit if it changed
+          # Create or move to update branch
+          git checkout -B update/steamunderground
+
+          # Stage updated JSON
           git add steamunderground.json
+
+          # Skip commit if there are no changes
           if git diff --cached --quiet; then
             echo "No changes detected. Skipping commit."
             exit 0
           fi
 
+          # Commit with skip-ci to prevent loops
           git commit -m "Update steamunderground.json [skip ci]"
 
-          # Push with overwrite (safe rebase behavior)
-          git push --force-with-lease https://x-access-token:${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git update/steamunderground
+          # Force push so branch always matches latest scrape result
+          git push --force https://x-access-token:${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git HEAD:update/steamunderground
