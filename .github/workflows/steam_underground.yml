@@ -16,6 +16,19 @@ jobs:
           fetch-depth: 0
           persist-credentials: false  # We will push using PAT instead
 
+      - name: Prepare branch
+        run: |
+          cd "hydra sources/FMHY/steam undergound"
+
+          # Fetch remote branch if it exists
+          git fetch origin update/steamunderground || true
+
+          # Reset to remote branch or fallback to HEAD if branch doesn't exist
+          git reset --hard origin/update/steamunderground || git reset --hard
+
+          # Switch to update branch (create if missing)
+          git checkout -B update/steamunderground
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -41,26 +54,13 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          # Fetch remote branch if it exists
-          git fetch origin update/steamunderground || true
-
-          # Reset to remote branch or wipe to HEAD if branch doesn't exist yet
-          git reset --hard origin/update/steamunderground || git reset --hard
-
-          # Create or move to update branch
-          git checkout -B update/steamunderground
-
-          # Stage updated JSON
           git add steamunderground.json
 
-          # Skip commit if there are no changes
+          # Skip commit if no changes were made
           if git diff --cached --quiet; then
             echo "No changes detected. Skipping commit."
             exit 0
           fi
 
-          # Commit with skip-ci to prevent loops
           git commit -m "Update steamunderground.json [skip ci]"
-
-          # Force push so branch always matches latest scrape result
           git push --force https://x-access-token:${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git HEAD:update/steamunderground
