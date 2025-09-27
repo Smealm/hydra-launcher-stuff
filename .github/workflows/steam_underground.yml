@@ -32,7 +32,7 @@ jobs:
           python steamunderground-hydra.py
         working-directory: "hydra sources/FMHY/steam undergound"
 
-      - name: Commit and push updated JSON directly to main
+      - name: Push new games
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
@@ -44,12 +44,21 @@ jobs:
           git checkout main
           git reset --hard origin/main
 
-          git add steamunderground.json
+          # Run scraper and capture output
+          SCRAPER_OUTPUT=$(python steamunderground-hydra.py)
 
-          if git diff --cached --quiet; then
-            echo "No changes detected. Skipping commit."
-            exit 0
-          fi
+          echo "$SCRAPER_OUTPUT"
 
-          git commit -m "Update steamunderground.json [skip ci]"
-          git push https://x-access-token:${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git HEAD:main
+          # Check for the "new to scrape" pattern in output
+          NEW_GAMES=$(echo "$SCRAPER_OUTPUT" | grep -oP '\[INFO\] Found \d+ total games, \K\d+(?= new to scrape)')
+
+          if [ "$NEW_GAMES" -gt 0 ]; then
+            echo "Detected $NEW_GAMES new games. Committing and pushing updated JSON."
+
+            git add steamunderground.json
+
+            git commit -m "Update steamunderground.json with $NEW_GAMES new games [skip ci]" || echo "Nothing to commit, but pushing anyway"
+
+            git push --force https://x-access-token:${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git HEAD:main
+          else
+            echo "No new games detected. Skipping push."
