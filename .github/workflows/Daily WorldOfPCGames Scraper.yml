@@ -1,0 +1,64 @@
+name: Daily WorldOfPCGames Scrape
+
+on:
+  schedule:
+    - cron: "0 10 * * *"   # Runs daily at 10AM PT
+      timezone: "America/Los_Angeles"
+  workflow_dispatch:
+
+jobs:
+  scrape-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false  # Will push using PAT
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+        working-directory: "hydra sources/FMHY/world of pc games"
+
+      - name: Run scraper and push updates
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          cd "hydra sources/FMHY/world of pc games"
+
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git checkout main
+          git reset --hard origin/main
+
+          # Run scraper and capture output
+          SCRAPER_OUTPUT=$(python worldofpcgames-hydra.py)
+          echo "$SCRAPER_OUTPUT"
+
+          # Extract numbers from scraper output
+          PREVIOUSLY_LOADED=$(echo "$SCRAPER_OUTPUT" | grep -oP '\[INFO\] Loaded \K\d+(?= previously scraped games)')
+          TOTAL_AFTER=$(echo "$SCRAPER_OUTPUT" | grep -oP '\[DONE\] Scraping complete. Total games in dataset: \K\d+')
+
+          # Compute new games
+          NEW_GAMES=$((TOTAL_AFTER - PREVIOUSLY_LOADED))
+
+          if [ "$NEW_GAMES" -gt 0 ]; then
+            echo "Detected $NEW_GAMES new games. Committing and pushing updated JSON."
+
+            git add worldofpcgames.json
+
+            git commit -m "Update worldofpcgames.json with $NEW_GAMES new games [skip ci]" || echo "Nothing to commit, but pushing anyway"
+
+            git push --force https://x-access-token:${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git HEAD:main
+          else
+            echo "No new games detected. Skipping push."
+          fi
