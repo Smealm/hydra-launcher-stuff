@@ -41,8 +41,11 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          # Create a branch for updates
-          git checkout -B update/steamunderground
+          # Make sure we have the latest remote branch state
+          git fetch origin update/steamunderground || true
+
+          # Create or switch to branch
+          git checkout -B update/steamunderground origin/update/steamunderground || git checkout -B update/steamunderground
 
           # Add JSON and commit if it changed
           git add steamunderground.json
@@ -53,5 +56,5 @@ jobs:
 
           git commit -m "Update steamunderground.json [skip ci]"
 
-          # Push using PAT authentication
-          git push --force-with-lease https://x-access-token:${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git HEAD:update/steamunderground
+          # Push with overwrite (safe rebase behavior)
+          git push --force-with-lease https://x-access-token:${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git update/steamunderground
