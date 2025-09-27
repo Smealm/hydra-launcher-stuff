@@ -1,8 +1,24 @@
 # hydra-launcher-stuff
 stuff relating to [hydra launcher](https://hydralauncher.gg/), mainly just ideas i had for it with primitave examples of such ideas where applicable
 
+---
 
-ideas
+## scrapers / sources
+Disclaimer: no pirated content is hosted by this repo, this repo does not upload or distribute any copyrighted material. This repo contains code (mainly in the form of simple web scrapers) that go to sites listed on [FMHY](https://github.com/fmhy) and collects plain text present on these sites and organizes them into json files for which hydra can then use. this repo is not at all related to these sites in any way.
+
+1. Steam Underground
+Explaination: a starred source on FMHY, contains preinstalled games
+Scraping logic: simple html pattern recognization
+Updated: daily via workers
+Scraper load on host site: impossible to tell 100% due to me not being a site owner, however all the list of games are fetched from a single HTTP request, at that point the heavyness comes into play as the scraper then goes to the games that arent already present in the json and for each game page then fetches game specific details like URI's, titles storage sizes and dates.
+
+2. World of PC Games
+Explaination: a source on FMHY, contains preinstalled games
+Note: works pretty much the same as steam underground
+
+---
+
+## ideas
 1. crack detection (identify the crack a game uses)
    
    1a. using crack detection optional other features (e.g goldberg username setting, automatic achievement fetching and generation, so achievements work out of the box, for games detected as being goldberg)
