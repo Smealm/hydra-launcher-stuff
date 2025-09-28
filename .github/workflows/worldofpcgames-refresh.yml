@@ -1,0 +1,57 @@
+name: Weekly WorldOfPCGames Refresh URIs
+
+on:
+  schedule:
+    # Run every Monday (0 = Sunday, 1 = Monday) for weeks 1-4 of every month
+    # GitHub Actions cron uses UTC
+    - cron: "0 10 1-7 * *"    # 1st Monday of month at 10:00 PT
+      timezone: "America/Los_Angeles"
+    - cron: "0 10 8-14 * *"   # 2nd Monday
+      timezone: "America/Los_Angeles"
+    - cron: "0 10 15-21 * *"  # 3rd Monday
+      timezone: "America/Los_Angeles"
+    - cron: "0 10 22-28 * *"  # 4th Monday
+      timezone: "America/Los_Angeles"
+  workflow_dispatch:
+
+jobs:
+  refresh-uris:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false  # push using PAT
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+        working-directory: "hydra sources/FMHY/world of pc games"
+
+      - name: Refresh URIs
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          cd "hydra sources/FMHY/world of pc games"
+
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git checkout main
+          git reset --hard origin/main
+
+          # Run scraper with update URIs mode
+          python worldofpcgames-hydra.py --update-uri
+
+          # Commit and push updated JSON
+          git add worldofpcgames.json
+          git commit -m "Refresh URIs for WorldOfPCGames [skip ci]" || echo "Nothing to commit, pushing anyway"
+          git push --force https://x-access-token:${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git HEAD:main
