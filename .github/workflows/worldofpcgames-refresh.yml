@@ -4,13 +4,13 @@ on:
   schedule:
     # Run every Monday (0 = Sunday, 1 = Monday) for weeks 1-4 of every month
     # GitHub Actions cron uses UTC
-    - cron: "0 10 1-7 * *"    # 1st Monday of month at 10:00 PT
+    - cron: "0 11 1-7 * *"    # 1st Monday of month at 11:00 PT
       timezone: "America/Los_Angeles"
-    - cron: "0 10 8-14 * *"   # 2nd Monday
+    - cron: "0 11 8-14 * *"   # 2nd Monday
       timezone: "America/Los_Angeles"
-    - cron: "0 10 15-21 * *"  # 3rd Monday
+    - cron: "0 11 15-21 * *"  # 3rd Monday
       timezone: "America/Los_Angeles"
-    - cron: "0 10 22-28 * *"  # 4th Monday
+    - cron: "0 11 22-28 * *"  # 4th Monday
       timezone: "America/Los_Angeles"
   workflow_dispatch:
 
