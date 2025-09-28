@@ -75,20 +75,35 @@ async def fetch_html(session, url):
         resp.raise_for_status()
         return await resp.text()
 
-def is_emulated_game(url: str) -> bool:
-    """Return True if the URL indicates an emulated game (two-layer filter)."""
-    url = url.lower()
-    has_yuzu = "-yuzu-" in url
-    has_ryujinx = "-ryujinx-" in url
-    has_emulation_keywords = any(k in url for k in ["-emus-", "-emu-", "-emulator-"])
+# Define your filter table
+FILTER_KEYWORDS = {
+    "main": [
+        "-switch-",      # Main category keywords
+        "-yuzu-",        # Emulation
+        "-ryujinx-"
+    ],
+    "sub": [
+        "-nsp-",         # Subcategory keywords
+        "-emu-",         # Emulation
+        "-emus-",
+        "-emulator-"
+    ]
+}
 
-    # Layer 1: both yuzu and ryujinx → skip
-    if has_yuzu and has_ryujinx:
-        return True
-    # Layer 2: single emulator keyword + emulation keywords → skip
-    if (has_yuzu or has_ryujinx) and has_emulation_keywords:
-        return True
+def is_filtered_game(url: str) -> bool:
+    """
+    Return True if a game URL should be filtered out.
+    Logic: if a main keyword is found AND any subkeyword is found in the URL, filter it.
+    This is easy to extend: just add new keywords to FILTER_KEYWORDS.
+    """
+    url_lower = url.lower()
+    for main_kw in FILTER_KEYWORDS["main"]:
+        if main_kw in url_lower:
+            for sub_kw in FILTER_KEYWORDS["sub"]:
+                if sub_kw in url_lower:
+                    return True
     return False
+
 
 async def scrape_game_page(session, url, sem, results, progress, listing_text=None):
     start_time = time.time()
@@ -168,7 +183,7 @@ async def main():
         new_links = [(url, text) for url, text in all_links if url not in existing_links]
 
         # Two-layer emulator filter
-        filtered_links = [(url, text) for url, text in new_links if not is_emulated_game(url)]
+        filtered_links = [(url, text) for url, text in new_links if not is_filtered_game(url)]
         print(f"[INFO] {len(filtered_links)} links remaining after filtering emulated games.")
 
         progress = tqdm_asyncio(total=len(filtered_links), desc="Scraping Games", ncols=100, unit="game")
