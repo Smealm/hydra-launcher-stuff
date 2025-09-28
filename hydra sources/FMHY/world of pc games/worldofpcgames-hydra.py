@@ -86,7 +86,9 @@ FILTER_KEYWORDS = {
         "-nsp-",         # Subcategory keywords
         "-emu-",         # Emulation
         "-emus-",
-        "-emulator-"
+        "-emulator-",
+        "-xci-",
+        "-emulators-"
     ]
 }
 
@@ -205,3 +207,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
