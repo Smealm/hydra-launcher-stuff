@@ -173,14 +173,16 @@ async def main():
     sem = asyncio.Semaphore(CONCURRENCY)
     results = []
 
-    existing_links = set()
+    existing_games = {}
     if os.path.exists(OUTPUT_FILE):
         try:
             with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
                 data = json.load(f)
-                results = data.get("downloads", [])
-                existing_links = {g.get("repackLinkSource") for g in results if g.get("repackLinkSource")}
-            print(f"[INFO] Loaded {len(existing_links)} previously scraped games.")
+                for g in data.get("downloads", []):
+                    repack_link = g.get("repackLinkSource")
+                    if repack_link:
+                        existing_games[repack_link] = g
+            print(f"[INFO] Loaded {len(existing_games)} previously scraped games.")
         except Exception as e:
             print(f"[WARN] Failed to read existing JSON: {e}")
 
@@ -188,35 +190,50 @@ async def main():
         html = await fetch_html(session, BASE_URL)
         tree = HTMLParser(html)
 
-        # Extract links and listing text for date parsing
+        # Extract links and listing text
         link_items = tree.css(".aioseo-html-post-sitemap > ul:nth-child(2) > li > a")
-        all_links = [(a.attributes.get("href"), a.text(strip=True)) 
+        all_links = [(a.attributes.get("href"), a.text(strip=True))
                      for a in link_items if a.attributes.get("href") and "-free-download" in a.attributes.get("href")]
 
         if args.update_uri:
-            # Re-scrape all existing games for updating URIs and dates
-            links_to_scrape = [(g["repackLinkSource"], None) for g in results if g.get("repackLinkSource")]
+            # Refresh existing entries
+            links_to_scrape = [(url, None) for url in existing_games.keys()]
             print(f"[INFO] Updating URIs for {len(links_to_scrape)} existing games...")
         else:
             # Only scrape new links
-            links_to_scrape = [(url, text) for url, text in all_links if url not in existing_links]
+            links_to_scrape = [(url, text) for url, text in all_links if url not in existing_games]
 
         # Apply filter
         filtered_links = [(url, text) for url, text in links_to_scrape if not is_filtered_game(url)]
         print(f"[INFO] {len(filtered_links)} links remaining after filtering.")
 
         progress = tqdm_asyncio(total=len(filtered_links), desc="Scraping Games", ncols=100, unit="game")
-        tasks = [scrape_game_page(session, url, sem, results, progress, listing_text=text) 
-                 for url, text in filtered_links]
+
+        async def scrape_and_merge(url, text):
+            game_data = await scrape_game_page(session, url, sem, [], progress, listing_text=text)
+            if not game_data:
+                return
+
+            repack_link = game_data["repackLinkSource"]
+            if repack_link in existing_games:
+                # Merge: update uploadDate and uris
+                existing_entry = existing_games[repack_link]
+                existing_entry["uris"] = list(dict.fromkeys(game_data.get("uris", [])))
+                existing_entry["uploadDate"] = game_data.get("uploadDate", existing_entry.get("uploadDate", "Unknown"))
+            else:
+                existing_games[repack_link] = game_data
+
+        # Launch tasks
+        tasks = [scrape_and_merge(url, text) for url, text in filtered_links]
         await asyncio.gather(*tasks)
         progress.close()
 
     # Normalize titles
-    for g in results:
+    for g in existing_games.values():
         g["title"] = normalize_title(g.get("title", ""))
 
     # Sort and save
-    results = sorted(results, key=lambda g: g.get("title", "").lower())
+    results = sorted(existing_games.values(), key=lambda g: g.get("title", "").lower())
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump({"name": "WorldOfPCGames", "downloads": results}, f, indent=2)
 
