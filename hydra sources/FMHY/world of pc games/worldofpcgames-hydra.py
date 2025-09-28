@@ -36,21 +36,9 @@ TITLE_STRIP_KEYWORDS = [
     "download free"
 ]
 
-# Filter table
 FILTER_KEYWORDS = {
-    "main": [
-        "-switch-",      # Main category keywords
-        "-yuzu-",        # Emulation
-        "-ryujinx-"
-    ],
-    "sub": [
-        "-nsp-",         # Subcategory keywords
-        "-emu-",         # Emulation
-        "-emus-",
-        "-emulator-",
-        "-xci-",
-        "-emulators-"
-    ]
+    "main": ["-switch-", "-yuzu-", "-ryujinx-"],
+    "sub": ["-nsp-", "-emu-", "-emus-", "-emulator-", "-xci-", "-emulators-"]
 }
 
 # -----------------------
@@ -92,10 +80,6 @@ def extract_file_size(tree: HTMLParser) -> str:
     return "Unknown"
 
 def is_filtered_game(url: str) -> bool:
-    """
-    Return True if a game URL should be filtered out.
-    Logic: if a main keyword is found AND any subkeyword is found in the URL, filter it.
-    """
     url_lower = url.lower()
     for main_kw in FILTER_KEYWORDS["main"]:
         if main_kw in url_lower:
@@ -112,31 +96,24 @@ async def fetch_html(session, url):
         resp.raise_for_status()
         return await resp.text()
 
-async def scrape_game_page(session, url, sem, results, progress, listing_text=None):
-    start_time = time.time()
+async def scrape_game_page(session, url, sem, progress, listing_text=None):
     async with sem:
         try:
             html = await fetch_html(session, url)
             tree = HTMLParser(html)
 
-            # Title
             title_el = tree.css_first(".article-title")
             raw_title = title_el.text(strip=True) if title_el else url.rstrip("/").split("/")[-1].replace("-", " ")
 
-            # Upload date from listing text
             upload_date = parse_date_from_text(listing_text) if listing_text else "Unknown"
-
-            # File size
             file_size = extract_file_size(tree)
 
-            # First attempt: normal selector
             uris = [
                 a.attributes.get("href")
                 for a in tree.css(".DownloadButtonContainer a")
                 if a.attributes.get("href") and not a.attributes.get("href").endswith("-TRNT.rar")
             ]
 
-            # Fallback: scan entire HTML for known download hosts if no links found
             if not uris:
                 known_hosts = [
                     r"https?://datanodes\.to/[^\s'\"<>]+",
@@ -148,19 +125,18 @@ async def scrape_game_page(session, url, sem, results, progress, listing_text=No
                 for pattern in known_hosts:
                     found = re.findall(pattern, html)
                     uris.extend(found)
-                uris = list(dict.fromkeys(uris))  # remove duplicates
+                uris = list(dict.fromkeys(uris))
 
-            results.append({
+            return {
                 "title": raw_title,
                 "uploadDate": upload_date,
                 "fileSize": file_size,
                 "uris": uris,
                 "repackLinkSource": url
-            })
-
-            progress.update(1)
+            }
         except Exception as e:
             print(f"[ERROR] Failed to scrape {url}: {e}")
+            return None
 
 # -----------------------
 # Main
@@ -171,17 +147,16 @@ async def main():
     args = parser.parse_args()
 
     sem = asyncio.Semaphore(CONCURRENCY)
-    results = []
-
     existing_games = {}
+
     if os.path.exists(OUTPUT_FILE):
         try:
             with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 for g in data.get("downloads", []):
-                    repack_link = g.get("repackLinkSource")
-                    if repack_link:
-                        existing_games[repack_link] = g
+                    link = g.get("repackLinkSource")
+                    if link:
+                        existing_games[link] = g
             print(f"[INFO] Loaded {len(existing_games)} previously scraped games.")
         except Exception as e:
             print(f"[WARN] Failed to read existing JSON: {e}")
@@ -190,7 +165,6 @@ async def main():
         html = await fetch_html(session, BASE_URL)
         tree = HTMLParser(html)
 
-        # Extract links and listing text
         link_items = tree.css(".aioseo-html-post-sitemap > ul:nth-child(2) > li > a")
         all_links = [(a.attributes.get("href"), a.text(strip=True))
                      for a in link_items if a.attributes.get("href") and "-free-download" in a.attributes.get("href")]
@@ -203,7 +177,6 @@ async def main():
             # Only scrape new links
             links_to_scrape = [(url, text) for url, text in all_links if url not in existing_games]
 
-        # Apply filter
         filtered_links = [(url, text) for url, text in links_to_scrape if not is_filtered_game(url)]
         print(f"[INFO] {len(filtered_links)} links remaining after filtering.")
 
@@ -214,16 +187,30 @@ async def main():
             if not game_data:
                 return
 
-            repack_link = game_data["repackLinkSource"]
-            if repack_link in existing_games:
-                # Merge: update uploadDate and uris
-                existing_entry = existing_games[repack_link]
-                existing_entry["uris"] = list(dict.fromkeys(game_data.get("uris", [])))
-                existing_entry["uploadDate"] = game_data.get("uploadDate", existing_entry.get("uploadDate", "Unknown"))
-            else:
-                existing_games[repack_link] = game_data
+            existing_entry = existing_games.get(url)
+            prev_uris = existing_entry.get("uris", []) if existing_entry else []
+            prev_upload_date = existing_entry.get("uploadDate") if existing_entry else None
 
-        # Launch tasks
+            # Merge URIs per host
+            merged_uris = prev_uris.copy()
+            for new_uri in game_data.get("uris", []):
+                host_match = re.search(r"https?://([^/]+)/", new_uri)
+                if host_match:
+                    host = host_match.group(1)
+                    # Remove old URIs of the same host
+                    merged_uris = [u for u in merged_uris if host not in u]
+                    # Add the new URI
+                    merged_uris.append(new_uri)
+
+            # Merge upload date
+            merged_upload_date = game_data.get("uploadDate") if game_data.get("uploadDate") != "Unknown" else prev_upload_date
+
+            existing_games[url] = {
+                **game_data,
+                "uris": merged_uris,
+                "uploadDate": merged_upload_date or "Unknown"
+            }
+
         tasks = [scrape_and_merge(url, text) for url, text in filtered_links]
         await asyncio.gather(*tasks)
         progress.close()
@@ -241,6 +228,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-
-
-
