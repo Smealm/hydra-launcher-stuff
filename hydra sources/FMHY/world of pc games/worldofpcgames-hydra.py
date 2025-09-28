@@ -12,7 +12,7 @@ import unicodedata
 import argparse
 
 BASE_URL = "https://worldofpcgames.com/game-list/"
-CONCURRENCY = 300
+CONCURRENCY = 500
 OUTPUT_FILE = "worldofpcgames.json"
 
 # ✅ Use uvloop only on non-Windows systems
@@ -241,4 +241,5 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
 
