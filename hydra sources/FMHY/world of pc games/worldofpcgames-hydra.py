@@ -9,6 +9,7 @@ import os
 import time
 from tqdm.asyncio import tqdm_asyncio
 import unicodedata
+import argparse
 
 BASE_URL = "https://worldofpcgames.com/game-list/"
 CONCURRENCY = 150
@@ -35,6 +36,26 @@ TITLE_STRIP_KEYWORDS = [
     "download free"
 ]
 
+# Filter table
+FILTER_KEYWORDS = {
+    "main": [
+        "-switch-",      # Main category keywords
+        "-yuzu-",        # Emulation
+        "-ryujinx-"
+    ],
+    "sub": [
+        "-nsp-",         # Subcategory keywords
+        "-emu-",         # Emulation
+        "-emus-",
+        "-emulator-",
+        "-xci-",
+        "-emulators-"
+    ]
+}
+
+# -----------------------
+# Utility functions
+# -----------------------
 def normalize_title(title: str) -> str:
     if not title:
         return ""
@@ -70,33 +91,10 @@ def extract_file_size(tree: HTMLParser) -> str:
             return match.group(1).strip()
     return "Unknown"
 
-async def fetch_html(session, url):
-    async with session.get(url) as resp:
-        resp.raise_for_status()
-        return await resp.text()
-
-# Define your filter table
-FILTER_KEYWORDS = {
-    "main": [
-        "-switch-",      # Main category keywords
-        "-yuzu-",        # Emulation
-        "-ryujinx-"
-    ],
-    "sub": [
-        "-nsp-",         # Subcategory keywords
-        "-emu-",         # Emulation
-        "-emus-",
-        "-emulator-",
-        "-xci-",
-        "-emulators-"
-    ]
-}
-
 def is_filtered_game(url: str) -> bool:
     """
     Return True if a game URL should be filtered out.
     Logic: if a main keyword is found AND any subkeyword is found in the URL, filter it.
-    This is easy to extend: just add new keywords to FILTER_KEYWORDS.
     """
     url_lower = url.lower()
     for main_kw in FILTER_KEYWORDS["main"]:
@@ -106,6 +104,13 @@ def is_filtered_game(url: str) -> bool:
                     return True
     return False
 
+# -----------------------
+# Scraper
+# -----------------------
+async def fetch_html(session, url):
+    async with session.get(url) as resp:
+        resp.raise_for_status()
+        return await resp.text()
 
 async def scrape_game_page(session, url, sem, results, progress, listing_text=None):
     start_time = time.time()
@@ -131,7 +136,7 @@ async def scrape_game_page(session, url, sem, results, progress, listing_text=No
                 if a.attributes.get("href") and not a.attributes.get("href").endswith("-TRNT.rar")
             ]
 
-            # Fallback: scan the entire HTML for known download hosts if no links found
+            # Fallback: scan entire HTML for known download hosts if no links found
             if not uris:
                 known_hosts = [
                     r"https?://datanodes\.to/[^\s'\"<>]+",
@@ -157,7 +162,14 @@ async def scrape_game_page(session, url, sem, results, progress, listing_text=No
         except Exception as e:
             print(f"[ERROR] Failed to scrape {url}: {e}")
 
+# -----------------------
+# Main
+# -----------------------
 async def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--update-uri", action="store_true", help="Refresh URIs and upload dates for existing games")
+    args = parser.parse_args()
+
     sem = asyncio.Semaphore(CONCURRENCY)
     results = []
 
@@ -181,12 +193,17 @@ async def main():
         all_links = [(a.attributes.get("href"), a.text(strip=True)) 
                      for a in link_items if a.attributes.get("href") and "-free-download" in a.attributes.get("href")]
 
-        # Remove already scraped links
-        new_links = [(url, text) for url, text in all_links if url not in existing_links]
+        if args.update_uri:
+            # Re-scrape all existing games for updating URIs and dates
+            links_to_scrape = [(g["repackLinkSource"], None) for g in results if g.get("repackLinkSource")]
+            print(f"[INFO] Updating URIs for {len(links_to_scrape)} existing games...")
+        else:
+            # Only scrape new links
+            links_to_scrape = [(url, text) for url, text in all_links if url not in existing_links]
 
-        # Two-layer emulator filter
-        filtered_links = [(url, text) for url, text in new_links if not is_filtered_game(url)]
-        print(f"[INFO] {len(filtered_links)} links remaining after filtering emulated games.")
+        # Apply filter
+        filtered_links = [(url, text) for url, text in links_to_scrape if not is_filtered_game(url)]
+        print(f"[INFO] {len(filtered_links)} links remaining after filtering.")
 
         progress = tqdm_asyncio(total=len(filtered_links), desc="Scraping Games", ncols=100, unit="game")
         tasks = [scrape_game_page(session, url, sem, results, progress, listing_text=text) 
@@ -207,4 +224,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-
