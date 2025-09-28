@@ -18,6 +18,11 @@ Stuff relating to [Hydra Launcher](https://hydralauncher.gg/), mainly just ideas
 - **Explanation:** a source on FMHY, contains preinstalled games  
 - **Note:** works similarly to Steam Underground  
 
+## Future improvements (maybe)
+
+### 1. Monthly refresh
+- Currently sources are only added to as needed, games that are already present are not rescanned, this is good since it speeds up json building as we only request games entries that we dont already have. downside is that over time the links these jsons contain will be dead links, usually the site owner will add newer links as needed but since we aren't scanning games we already have we cant get the new links if they are needed. simple workaround to this will be a monthly refresh. how it would work is that once a month we can have the script fetch links to every game (like we already do) but for these links that are present, we go to them anyways, we keep all data the same but update the URI's. in the python script for the scraper i could add a cli command like --update-uri or something like that, when ran with this arguement the script will iterate over the URI's again to update the links where needed for each game.
+
 ---
 
 ## Ideas
