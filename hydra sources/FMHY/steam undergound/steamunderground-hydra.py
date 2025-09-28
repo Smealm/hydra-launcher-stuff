@@ -32,7 +32,8 @@ TITLE_STRIP_KEYWORDS = [
     "pc game download",
     "download pc",
     "for pc download",
-    "pc download"
+    "pc download",
+    "download for pc"
 ]
 
 def normalize_title(title: str) -> str:
@@ -179,3 +180,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
