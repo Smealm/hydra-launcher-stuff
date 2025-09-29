@@ -33,7 +33,8 @@ currently only implemented in world of pc games scraper
 
 2. **Source detection** — identify where a game initially came from.  
    - Some games may come from SteamRIP, SteamGG, etc. These sites may put URL files in the game directory. The launcher could detect these and store the source for the user.  
-   - **Automatic game organization:** Some sources contain nested folders instead of placing the game in the root folder. By detecting the source, Hydra could move and rename folders automatically.  
+3. **Automatic game organization:** Some sources contain nested folders instead of placing the game in the root folder. By detecting the source, Hydra could move and rename folders automatically. 
+
      Example for SteamGG:
      ```text
      Game-Name (version) SteamGG/
@@ -47,16 +48,17 @@ currently only implemented in world of pc games scraper
      - Move files in the folder up one level, removing nesting.  
      - Rename the root folder to match the game name.  
      - Optionally, use Steam app ID to fetch official game name from Steam store.
-
-3. **Automatic EXE setting** — automatically set the executable of preinstalled games using the game’s Steam ID or other metadata.  
+     - Proof of concept is available [here](https://github.com/Smealm/hydra-launcher-stuff/tree/main/hydra%20folder%20operations/organize), add profile and ignore patterns for them in the profiles.json, script normalizes your game folders for you
+4. **Automatic EXE setting** — automatically set the executable of preinstalled games using the game’s Steam ID or other metadata.  
    - Example: Hydra downloads "Cult of the Lamb" from SteamGG. Source detection fixes folder nesting. Hydra uses SteamDB or other APIs to set the correct EXE. Custom entries can be used for games that can’t launch directly from the main EXE (e.g., cracked versions).
 
-4. **Automatic installation of repacks** — extract and install repacks (FitGirl, Dodi, etc.) automatically.  
+5. **Automatic installation of repacks** — extract and install repacks (FitGirl, Dodi, etc.) automatically.  
    - Option to delete repacks after installation.  
    - GOG games: extract first (not DLCs), select default language, update `goggame-*.info` with correct language codes.  
+   - Proof of concept for auto installing GOG games can be found [here](https://github.com/Smealm/hydra-launcher-stuff/tree/main/hydra%20folder%20operations/install/GOG), relies on the [innoextract windows binary](https://constexpr.org/innoextract/#download) which is already included in the repo for convinience, you can source the innoextract binary yourself if you want to however. reason why the script uses innoextract instead of innosetup cli args is because innosetup has a habit of for brief moments unfocusing whatever window you have focused, like if you are doing something else while innosetup is installing in the background headless / silently it will just randomly take over focus making your computer unusable at times, innoextract gets around this entirely, downside however is that gog specific metadata like registries for the game being installed among some other things are not automatically created by default, i imagine you could add to this so those registries get created the same way innosetup would create them but with its own implementation but i dont really care about that either way.
 
-5. **Implement [Webtor](https://webtor.io/) as a debrid service** — free torrent-to-DDL service with 5MB/s speed cap.  
+6. **Implement [Webtor](https://webtor.io/) as a debrid service** — free torrent-to-DDL service with 5MB/s speed cap.  
    - Hydra would pass magnet links to Webtor and receive DDL links for downloading.  
 
-6. **Optional seamless downloads** — automatically download the first source (e.g., SteamGG) and first host (e.g., GoFile) without prompting the user.  
+7. **Optional seamless downloads** — automatically download the first source (e.g., SteamGG) and first host (e.g., GoFile) without prompting the user.  
    - Combined with automatic EXE setting, this streamlines Hydra for casual users.
