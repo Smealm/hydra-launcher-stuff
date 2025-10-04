@@ -9,20 +9,20 @@ Stuff relating to [Hydra Launcher](https://hydralauncher.gg/), mainly just ideas
 **Disclaimer:** no pirated content is hosted by this repo. This repo does not upload or distribute any copyrighted material. It contains code (mainly simple web scrapers) that fetch data from sites listed on [FMHY](https://github.com/fmhy) and organizes the plain text into JSON files that Hydra can use. This repo is not related to these sites in any way.
 
 ### 1. Steam Underground
-- **Explanation:** a starred source on FMHY, contains preinstalled games  
-- **Scraping logic:** simple HTML pattern recognition  
-- **Updated:** daily via workers  
-- **Scraper load on host site:** impossible to tell 100% due to not being a site owner. All games are fetched from a single HTTP request. After that, the scraper visits pages for games not already in the JSON to fetch details like URIs, titles, storage sizes, and dates.
+- **Explanation:** A starred source on FMHY, offering preinstalled games.  
+- **Scraping logic:** Uses simple HTML pattern recognition.  
+- **Update frequency:** Refreshed daily via workers.  
+- **Scraper load on host site:** Hard to determine without being the site owner. The initial scrape pulls all games from a single HTTP request. For new entries not already in the JSON, the scraper visits individual game pages to collect details such as URIs, titles, file sizes, and release dates.  
 
 ### 2. World of PC Games
-- **Explanation:** a source on FMHY, contains preinstalled games  
-- **Note:** works similarly to Steam Underground  
+- **Explanation:** Another FMHY source, also providing preinstalled games.  
+- **Note:** Works similarly to Steam Underground.  
 
-## Future improvements (maybe)
-
+## Future improvements (potential)
 ### 1. Weekly refresh
-- every week the script should fetch new download links from games already in the JSON, this is to help prevent dead or outdated links from clouding the json over time.
-currently only implemented in world of pc games scraper
+- Once a week, the script should re-fetch download links for games already listed in the JSON.  
+- This helps prevent outdated or dead links from accumulating over time.  
+- Currently, this functionality is only implemented in the World of PC Games scraper.  
 
 ---
 
@@ -61,4 +61,15 @@ currently only implemented in world of pc games scraper
    - Hydra would pass magnet links to Webtor and receive DDL links for downloading.  
 
 7. **Optional seamless downloads** — automatically download the first source (e.g., SteamGG) and first host (e.g., GoFile) without prompting the user.  
-   - Combined with automatic EXE setting, this streamlines Hydra for casual users.
+   - Combined with automatic EXE setting, this streamlines Hydra for casual users.  
+
+6. **Implement [Webtor](https://webtor.io/) as a debrid service** — free torrent-to-DDL service with a 5MB/s speed cap.  
+   - Hydra would forward magnet links to Webtor and receive DDL links in return.  
+
+7. **Optional seamless downloads** — automatically download the first available source (e.g., SteamGG) and first host (e.g., GoFile) without prompting the user.  
+   - Combined with automatic EXE configuration, this streamlines Hydra for casual users.  
+
+8. **Automatic Steam depot identification** — currently, You rely on sources to specify the version of the game being provided.  
+   - By collecting depot data (update manifests) from Steam, Hydra can compare the listed files and their MD5 hashes against the local game files.  
+   - The depot manifest that most closely matches indicates which Steam build the game is based on.  
+   - This is especially useful when downloading from sources that don’t explicitly state the game version, allowing Hydra to automatically determine the exact Steam build of a local copy.
