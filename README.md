@@ -24,6 +24,49 @@ Stuff relating to [Hydra Launcher](https://hydralauncher.gg/), mainly just ideas
 - This helps prevent outdated or dead links from accumulating over time.  
 - Currently, this functionality is only implemented in the World of PC Games scraper.  
 
+## How the scrapers operate
+
+1. **Load existing dataset (if available)**  
+   - Each scraper checks for an existing JSON file.  
+   - Previously scraped games are loaded so the scraper can skip duplicates or refresh old entries (if run with update mode).  
+
+2. **Fetch the game listing page**  
+   - Each source provides an index page containing links to all available games.  
+   - The scraper requests this page and extracts the game URLs (and sometimes metadata like upload dates).  
+
+3. **Filter out unwanted entries**  
+   - Non-PC or unsupported platforms (e.g., Switch builds, emulators) are filtered out using keyword rules.  
+
+4. **Scrape each game page**  
+   For every valid game URL:  
+   - **Title:** Extracted from the page and cleaned of filler words.  
+   - **Upload date:** Parsed from listing text or page content.  
+   - **File size:** Collected if the site provides it.  
+   - **Download URIs:**  
+     - First, the scraper looks for standard download buttons/containers.  
+     - If none are found, it falls back to scanning the raw HTML for known file host patterns (GoFile, Pixeldrain, etc.).  
+
+5. **Merge results with existing data**  
+   - Old links from the same host are replaced with updated ones.  
+   - Upload dates are preserved unless newer information is available.  
+
+6. **Normalize and save**  
+   - Titles are cleaned and normalized for consistency.  
+   - The final dataset is sorted alphabetically and saved as JSON in this format:  
+     ```json
+     {
+       "name": "SourceName",
+       "downloads": [
+         {
+           "title": "Game Name",
+           "uploadDate": "2025-10-04T00:00:00Z",
+           "fileSize": "25 GB",
+           "uris": ["https://gofile.io/...", "..."],
+           "repackLinkSource": "https://example.com/..."
+         }
+       ]
+     }
+     ```
 ---
 
 ## Ideas
