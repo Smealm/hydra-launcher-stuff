@@ -9,6 +9,7 @@ import os
 import time
 from tqdm.asyncio import tqdm_asyncio
 import unicodedata
+import argparse
 
 BASE_URL = "https://steamunderground.net/a-to-z-games/"
 CONCURRENCY = 150
@@ -40,24 +41,16 @@ def normalize_title(title: str) -> str:
     """Normalize a game title for final JSON output."""
     if not title:
         return ""
-
-    # Normalize unicode and remove non-ASCII
     title = unicodedata.normalize("NFKD", title)
     title = title.encode("ascii", "ignore").decode()
     title = re.sub(r"[^\x20-\x7E]", "", title)
-
-    # Strip blacklisted keywords
     lower_title = title.lower()
     for keyword in TITLE_STRIP_KEYWORDS:
         idx = lower_title.find(keyword)
         if idx != -1:
             title = title[:idx]
             break
-
-    # Remove trailing parentheses like (v1.0.0), (Build 1234)
     title = re.sub(r"\s*\(.*?\)\s*$", "", title)
-
-    # Normalize spaces and title-case
     title = " ".join(title.split()).title()
     return title
 
@@ -79,68 +72,82 @@ def extract_file_size(tree: HTMLParser) -> str:
 
 async def fetch_html(session, url):
     async with session.get(url) as resp:
+        resp.raise_for_status()
         return await resp.text()
 
-async def scrape_game_page(session, url, sem, results, progress):
-    start_time = time.time()
+async def scrape_game_page(session, url, sem, progress, existing_game=None):
     async with sem:
-        html = await fetch_html(session, url)
-        tree = HTMLParser(html)
+        try:
+            html = await fetch_html(session, url)
+            tree = HTMLParser(html)
 
-        # Try to get title from page
-        title_el = tree.css_first(".s-post-header > h1:nth-child(2)")
-        if title_el:
-            raw_title = title_el.text(strip=True)
-        else:
-            # Fallback: derive from slug if no title found
-            slug = url.rstrip("/").split("/")[-1]
-            slug = slug.replace("-", " ")
-            raw_title = slug
-            print(f"\n[WARN] No title found on page, using slug as title: {raw_title}")
+            # Title
+            title_el = tree.css_first(".s-post-header > h1:nth-child(2)")
+            raw_title = title_el.text(strip=True) if title_el else url.rstrip("/").split("/")[-1].replace("-", " ")
 
-        # Parse upload date
-        date_el = tree.css_first(".post-date")
-        upload_date = parse_date(date_el.text(strip=True)) if date_el else "Unknown"
+            # Upload date
+            date_el = tree.css_first(".post-date")
+            upload_date = parse_date(date_el.text(strip=True)) if date_el else "Unknown"
 
-        # File size
-        file_size = extract_file_size(tree)
+            # File size
+            file_size = extract_file_size(tree)
 
-        # URIs, filter out -TRNT.rar files
-        uris = [
-            a.attributes.get("href")
-            for a in tree.css(".enjoy-css")
-            if a.attributes.get("href") and not a.attributes.get("href").endswith("-TRNT.rar")
-        ] or []
+            # URIs (filter out TRNT files)
+            uris = [
+                a.attributes.get("href")
+                for a in tree.css(".enjoy-css")
+                if a.attributes.get("href") and not a.attributes.get("href").endswith("-TRNT.rar")
+            ] or []
 
-        game_data = {
-            "title": raw_title or slug,  # fallback to slug if raw_title empty
-            "uploadDate": upload_date or "Unknown",
-            "fileSize": file_size or "Unknown",
-            "uris": uris,
-            "repackLinkSource": url
-        }
+            # If updating, merge old URIs intelligently
+            if existing_game:
+                prev_uris = existing_game.get("uris", [])
+                merged_uris = prev_uris.copy()
 
-        results.append(game_data)
+                for new_uri in uris:
+                    host = re.match(r"https?://([^/]+)/", new_uri)
+                    if host:
+                        host = host.group(1)
+                        merged_uris = [u for u in merged_uris if host not in u]
+                    merged_uris.append(new_uri)
 
-        elapsed = time.time() - start_time
-        avg_time = sum([elapsed for _ in results]) / len(results)
-        remaining = avg_time * (progress.total - progress.n - 1)
+                uris = list(dict.fromkeys(merged_uris))
+                if upload_date == "Unknown":
+                    upload_date = existing_game.get("uploadDate", "Unknown")
 
-        progress.set_postfix_str(f"Last: {raw_title[:30].ljust(30)} | ETA: {time.strftime('%H:%M:%S', time.gmtime(remaining))}")
-        progress.update(1)
+            progress.update(1)
+
+            return {
+                "title": raw_title,
+                "uploadDate": upload_date,
+                "fileSize": file_size,
+                "uris": uris,
+                "repackLinkSource": url
+            }
+
+        except Exception as e:
+            print(f"[ERROR] Failed to scrape {url}: {e}")
+            progress.update(1)
+            return None
 
 async def main():
-    sem = asyncio.Semaphore(CONCURRENCY)
-    results = []
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--update-uri", action="store_true", help="Refresh URIs and upload dates for existing games")
+    args = parser.parse_args()
 
-    existing_links = set()
+    sem = asyncio.Semaphore(CONCURRENCY)
+    existing_games = {}
+
+    # ✅ Load existing JSON
     if os.path.exists(OUTPUT_FILE):
         try:
             with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
                 data = json.load(f)
-                results = data.get("downloads", [])
-                existing_links = {g.get("repackLinkSource") for g in results if g.get("repackLinkSource")}
-            print(f"[INFO] Loaded {len(existing_links)} previously scraped games.")
+                for g in data.get("downloads", []):
+                    link = g.get("repackLinkSource")
+                    if link:
+                        existing_games[link] = g
+            print(f"[INFO] Loaded {len(existing_games)} previously scraped games.")
         except Exception as e:
             print(f"[WARN] Failed to read existing JSON: {e}")
 
@@ -157,22 +164,31 @@ async def main():
             and "switch-xci" not in a.attributes.get("href")
         ]
 
-        new_links = [link for link in all_links if link not in existing_links]
+        if args.update_uri:
+            links_to_scrape = [(url, existing_games[url]) for url in existing_games.keys()]
+            print(f"[INFO] Updating URIs for {len(links_to_scrape)} existing games...")
+        else:
+            new_links = [link for link in all_links if link not in existing_games]
+            links_to_scrape = [(url, None) for url in new_links]
+            print(f"[INFO] Found {len(all_links)} total games, {len(new_links)} new to scrape.")
 
-        print(f"[INFO] Found {len(all_links)} total games, {len(new_links)} new to scrape.")
-        print(f"[INFO] Writing live results to {OUTPUT_FILE}")
+        progress = tqdm_asyncio(total=len(links_to_scrape), desc="Scraping Games", ncols=100, unit="game")
 
-        progress = tqdm_asyncio(total=len(new_links), desc="Scraping Games", ncols=100, unit="game")
-        tasks = [scrape_game_page(session, url, sem, results, progress) for url in new_links]
-        await asyncio.gather(*tasks)
+        async def scrape_and_merge(url, existing):
+            game_data = await scrape_game_page(session, url, sem, progress, existing_game=existing)
+            if not game_data:
+                return
+            existing_games[url] = {
+                **existing_games.get(url, {}),
+                **game_data,
+                "title": normalize_title(game_data.get("title", "")),
+            }
+
+        await asyncio.gather(*[scrape_and_merge(url, existing) for url, existing in links_to_scrape])
         progress.close()
 
-    # ✅ Normalize all titles after scraping
-    for g in results:
-        g["title"] = normalize_title(g.get("title", ""))
-
-    # ✅ Final sort and write JSON
-    results = sorted(results, key=lambda g: g.get("title", "").lower())
+    # ✅ Sort and write to JSON
+    results = sorted(existing_games.values(), key=lambda g: g.get("title", "").lower())
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump({"name": "SteamUnderground", "downloads": results}, f, indent=2)
 
@@ -180,4 +196,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-
