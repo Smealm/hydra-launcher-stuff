@@ -22,7 +22,6 @@ Stuff relating to [Hydra Launcher](https://hydralauncher.gg/), mainly just ideas
 ### 1. Weekly refresh
 - Once a week, the script should re-fetch download links for games already listed in the JSON.  
 - This helps prevent outdated or dead links from accumulating over time.  
-- Currently, this functionality is only implemented in the World of PC Games scraper.  
 
 ## How the scrapers operate
 
