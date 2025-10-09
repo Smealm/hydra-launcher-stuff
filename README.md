@@ -14,7 +14,7 @@ Stuff relating to [Hydra Launcher](https://hydralauncher.gg/), mainly just ideas
 - **Update frequency:** Refreshed daily via workers.  
 - **Scraper load on host site:** Hard to determine without being the site owner. The initial scrape pulls all games from a single HTTP request. For new entries not already in the JSON, the scraper visits individual game pages to collect details such as URIs, titles, file sizes, and release dates.  
 
-### 2. World of PC Games
+### 2. World of PC Games - currently not being updated. the script that scrapes the a-z page currently hits a cloudflare turnstile and can't continue. 
 - **Explanation:** Another FMHY source, also providing preinstalled games.  
 - **Note:** Works similarly to Steam Underground.  
 
