@@ -27,7 +27,7 @@ else:
     print("[INFO] Windows detected — skipping uvloop")
 
 # ✅ Keywords to strip from titles/slugs
-TITLE_STRIP_KEYWORDS = [
+MULTIWORD_TITLE_KEYWORDS = [
     "free download",
     "direct download",
     "pc game download",
@@ -37,22 +37,74 @@ TITLE_STRIP_KEYWORDS = [
     "download for pc"
 ]
 
-def normalize_title(title: str) -> str:
-    """Normalize a game title for final JSON output."""
-    if not title:
+SINGLEWORD_TITLE_KEYWORDS = [
+    "download",
+    "setup",
+    "installer",
+]
+
+def clean_json_title(raw_title: str, url: str) -> str:
+    """
+    Universal JSON title cleaner.
+    - Multi-word keywords (always stripped)
+    - Single-word keywords (slug-aware second pass)
+    """
+    if not raw_title:
         return ""
-    title = unicodedata.normalize("NFKD", title)
+
+    # --- Normalize base title ---
+    title = unicodedata.normalize("NFKD", raw_title)
     title = title.encode("ascii", "ignore").decode()
-    title = re.sub(r"[^\x20-\x7E]", "", title)
+    title = re.sub(r"[^\x20-\x7E]", "", title).strip()
     lower_title = title.lower()
-    for keyword in TITLE_STRIP_KEYWORDS:
+
+    # --- Pass 1: remove multi-word buzzwords always ---
+    for keyword in MULTIWORD_TITLE_KEYWORDS:
         idx = lower_title.find(keyword)
         if idx != -1:
-            title = title[:idx]
+            title = title[:idx].strip()
+            lower_title = title.lower()
             break
+
+    # --- Derive slug for comparison ---
+    slug = url.rstrip("/").split("/")[-1].lower()
+    # Remove known promo buzzwords from slug to derive base slug title
+    for kw in [k.replace(" ", "-") for k in MULTIWORD_TITLE_KEYWORDS]:
+        slug = slug.replace(kw, "")
+    for kw in SINGLEWORD_TITLE_KEYWORDS:
+        slug = slug.replace(f"-{kw}", "")
+    slug_base = slug.replace("-", " ").strip()
+
+    # --- Pass 2: single-word keyword removal (slug-aware) ---
+    for keyword in SINGLEWORD_TITLE_KEYWORDS:
+        if keyword not in slug_base:
+            title = re.sub(rf"\b{re.escape(keyword)}\b\s*$", "", title, flags=re.I).strip()
+
+    # --- Final cleanup ---
     title = re.sub(r"\s*\(.*?\)\s*$", "", title)
     title = " ".join(title.split()).title()
     return title
+
+def fix_empty_titles(data: dict) -> dict:
+    """
+    Fill in empty titles by deriving from the slug in repackLinkSource.
+    """
+    for game in data.get("downloads", []):
+        if not game.get("title"):
+            url = game.get("repackLinkSource", "")
+            if url:
+                slug = url.rstrip("/").split("/")[-1]
+                # Remove multi-word keywords
+                for kw in [k.replace(" ", "-") for k in MULTIWORD_TITLE_KEYWORDS]:
+                    slug = slug.replace(kw, "")
+                # Remove single-word keywords
+                for kw in SINGLEWORD_TITLE_KEYWORDS:
+                    slug = slug.replace(f"-{kw}", "")
+                # Convert dashes to spaces
+                raw_title = slug.replace("-", " ").strip()
+                # Apply universal title cleaner
+                game["title"] = clean_json_title(raw_title, url)
+    return data
 
 def parse_date(raw_date: str) -> str:
     try:
@@ -169,7 +221,7 @@ async def main():
             print(f"[INFO] Updating URIs for {len(links_to_scrape)} existing games...")
         else:
             new_links = [link for link in all_links if link not in existing_games]
-            links_to_scrape = [(url, None) for url in new_links]
+            links_to_scrape = [(link, None) for link in new_links]
             print(f"[INFO] Found {len(all_links)} total games, {len(new_links)} new to scrape.")
 
         progress = tqdm_asyncio(total=len(links_to_scrape), desc="Scraping Games", ncols=100, unit="game")
@@ -181,16 +233,20 @@ async def main():
             existing_games[url] = {
                 **existing_games.get(url, {}),
                 **game_data,
-                "title": normalize_title(game_data.get("title", "")),
+                # ✅ Apply new universal title cleaner
+                "title": clean_json_title(game_data.get("title", ""), game_data.get("repackLinkSource", "")),
             }
 
         await asyncio.gather(*[scrape_and_merge(url, existing) for url, existing in links_to_scrape])
         progress.close()
 
-    # ✅ Sort and write to JSON
+    # ✅ Sort and fix titles before writing to JSON
     results = sorted(existing_games.values(), key=lambda g: g.get("title", "").lower())
+    json_data = {"name": "SteamUnderground", "downloads": results}
+    json_data = fix_empty_titles(json_data)
+
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        json.dump({"name": "SteamUnderground", "downloads": results}, f, indent=2)
+        json.dump(json_data, f, indent=2)
 
     print(f"[DONE] Scraping complete. Total games in dataset: {len(results)}")
 
