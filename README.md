@@ -84,7 +84,7 @@ Some sources are highly recommended for Hydra users, even if scrapers are not av
 ---
 
 ### Planned Improvements
-- **Weekly refresh:** Re-fetch download links for games already in the JSON to prevent outdated or dead links from accumulating.
+- **Weekly refresh:** Re-fetch download links for games already in the JSON to prevent outdated or dead links from accumulating. (this has been implemented)
 
 ---
 
