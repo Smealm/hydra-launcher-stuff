@@ -123,13 +123,7 @@ Some sources are highly recommended for Hydra users, even if scrapers are not av
    - Hydra would pass magnet links to Webtor and receive DDL links for downloading.  
 
 7. **Optional seamless downloads** — automatically download the first source (e.g., SteamGG) and first host (e.g., GoFile) without prompting the user.  
-   - Combined with automatic EXE setting, this streamlines Hydra for casual users.  
-
-6. **Implement [Webtor](https://webtor.io/) as a debrid service** — free torrent-to-DDL service with a 5MB/s speed cap.  
-   - Hydra would forward magnet links to Webtor and receive DDL links in return.  
-
-7. **Optional seamless downloads** — automatically download the first available source (e.g., SteamGG) and first host (e.g., GoFile) without prompting the user.  
-   - Combined with automatic EXE configuration, this streamlines Hydra for casual users.  
+   - Combined with automatic EXE setting, this streamlines Hydra for casual users.    
 
 8. **Automatic Steam depot identification** — currently, You rely on sources to specify the version of the game being provided.  
    - By collecting depot data (update manifests) from Steam, Hydra can compare the listed files and their MD5 hashes against the local game files.  
