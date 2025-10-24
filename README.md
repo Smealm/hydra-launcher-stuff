@@ -18,10 +18,10 @@ Stuff relating to [Hydra Launcher](https://hydralauncher.gg/), mainly just ideas
 - **Update frequency:** Daily via automated workers.  
 - **Load on host site:** The scraper initially requests the full game list, then visits individual game pages only for new entries to collect details such as download URLs, titles, file sizes, and release dates.
 
-#### 2. World of PC Games ❌ Inactive [visit site](https://worldofpcgames.com/)
-- **Description:** Another FMHY source offering preinstalled PC games.  
-- **Status:** The scraper is currently non-functional because the A-Z page is protected by Cloudflare Turnstile, preventing automated access.  
-- **Note:** When functional, the scraper would operate similarly to Steam Underground.
+#### 2. World of PC Games ✅ Active [visit site](https://worldofpcgames.com/)
+- **Description:** Another FMHY source offering preinstalled PC games.
+- **Status:** Scrapers back up and running for the foreseeable future. (hopefully)
+- **Note:** The scraper would operate similarly to Steam Underground.
 
 ---
 
