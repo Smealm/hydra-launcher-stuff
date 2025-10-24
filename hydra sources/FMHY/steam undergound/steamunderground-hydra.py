@@ -85,25 +85,41 @@ def clean_json_title(raw_title: str, url: str) -> str:
     title = " ".join(title.split()).title()
     return title
 
-def fix_empty_titles(data: dict) -> dict:
+def post_process_json(data: dict) -> dict:
     """
-    Fill in empty titles by deriving from the slug in repackLinkSource.
+    Post-process JSON data:
+    1. Remove all .TRNT files (any extension)
+    2. Fix empty titles from slug
+    3. Clean all existing titles
     """
+    import os
+
     for game in data.get("downloads", []):
-        if not game.get("title"):
-            url = game.get("repackLinkSource", "")
-            if url:
-                slug = url.rstrip("/").split("/")[-1]
-                # Remove multi-word keywords
-                for kw in [k.replace(" ", "-") for k in MULTIWORD_TITLE_KEYWORDS]:
-                    slug = slug.replace(kw, "")
-                # Remove single-word keywords
-                for kw in SINGLEWORD_TITLE_KEYWORDS:
-                    slug = slug.replace(f"-{kw}", "")
-                # Convert dashes to spaces
-                raw_title = slug.replace("-", " ").strip()
-                # Apply universal title cleaner
-                game["title"] = clean_json_title(raw_title, url)
+        # --- Remove all TRNT URIs ---
+        uris = game.get("uris", [])
+        filtered_uris = []
+        for u in uris:
+            filename = os.path.basename(u).lower()
+            if ".trnt" not in filename:
+                filtered_uris.append(u)
+        game["uris"] = filtered_uris
+
+        # --- Fix empty titles from slug ---
+        raw_title = game.get("title", "")
+        url = game.get("repackLinkSource", "")
+        if not raw_title and url:
+            slug = url.rstrip("/").split("/")[-1]
+            for kw in [k.replace(" ", "-") for k in MULTIWORD_TITLE_KEYWORDS]:
+                slug = slug.replace(kw, "")
+            for kw in SINGLEWORD_TITLE_KEYWORDS:
+                slug = slug.replace(f"-{kw}", "")
+            raw_title = slug.replace("-", " ").strip()
+            game["title"] = clean_json_title(raw_title, url)
+
+        # --- Clean existing titles robustly ---
+        if raw_title and url:
+            game["title"] = clean_json_title(raw_title, url)
+
     return data
 
 def parse_date(raw_date: str) -> str:
@@ -233,22 +249,26 @@ async def main():
             existing_games[url] = {
                 **existing_games.get(url, {}),
                 **game_data,
-                # ✅ Apply new universal title cleaner
+                # ✅ Apply universal title cleaner
                 "title": clean_json_title(game_data.get("title", ""), game_data.get("repackLinkSource", "")),
             }
 
         await asyncio.gather(*[scrape_and_merge(url, existing) for url, existing in links_to_scrape])
         progress.close()
 
-    # ✅ Sort and fix titles before writing to JSON
+    # ✅ Sort results
     results = sorted(existing_games.values(), key=lambda g: g.get("title", "").lower())
     json_data = {"name": "SteamUnderground", "downloads": results}
-    json_data = fix_empty_titles(json_data)
 
+    # ✅ Post-process titles & URIs
+    json_data = post_process_json(json_data)
+
+    # ✅ Save JSON
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(json_data, f, indent=2)
 
     print(f"[DONE] Scraping complete. Total games in dataset: {len(results)}")
+
 
 if __name__ == "__main__":
     asyncio.run(main())
