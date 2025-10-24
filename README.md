@@ -6,66 +6,86 @@ Stuff relating to [Hydra Launcher](https://hydralauncher.gg/), mainly just ideas
 
 ## Scrapers / Sources
 
-**Disclaimer:** no pirated content is hosted by this repo. This repo does not upload or distribute any copyrighted material. It contains code (mainly simple web scrapers) that fetch data from sites listed on [FMHY](https://github.com/fmhy) and organizes the plain text into JSON files that Hydra can use. This repo is not related to these sites in any way.
+**Disclaimer:** This repository does **not** host or distribute any pirated content. It contains code—mainly simple web scrapers—that fetches data from sites listed on [FMHY](https://github.com/fmhy) and organizes it into JSON files usable by Hydra. This repository is **not affiliated** with these sites in any way.
 
-### 1. Steam Underground
-- **Explanation:** A starred source on FMHY, offering preinstalled games.  
-- **Scraping logic:** Uses simple HTML pattern recognition.  
-- **Update frequency:** Refreshed daily via workers.  
-- **Scraper load on host site:** Hard to determine without being the site owner. The initial scrape pulls all games from a single HTTP request. For new entries not already in the JSON, the scraper visits individual game pages to collect details such as URIs, titles, file sizes, and release dates.  
+---
 
-### 2. World of PC Games - currently not being updated. the script that scrapes the a-z page currently hits a cloudflare turnstile and can't continue. 
-- **Explanation:** Another FMHY source, also providing preinstalled games.  
-- **Note:** Works similarly to Steam Underground.  
+### Scrapers (currently supported)
 
-## Future improvements (potential)
-### 1. Weekly refresh
-- Once a week, the script should re-fetch download links for games already listed in the JSON.  
-- This helps prevent outdated or dead links from accumulating over time.  
+#### 1. Steam Underground ✅ Active
+- **Description:** A well-known FMHY source providing preinstalled PC games.  
+- **Scraping method:** Uses HTML pattern recognition to extract game data.  
+- **Update frequency:** Daily via automated workers.  
+- **Load on host site:** The scraper initially requests the full game list, then visits individual game pages only for new entries to collect details such as download URLs, titles, file sizes, and release dates.
 
-## How the scrapers operate
+#### 2. World of PC Games ❌ Inactive
+- **Description:** Another FMHY source offering preinstalled PC games.  
+- **Status:** The scraper is currently non-functional because the A-Z page is protected by Cloudflare Turnstile, preventing automated access.  
+- **Note:** When functional, the scraper would operate similarly to Steam Underground.
 
-1. **Load existing dataset (if available)**  
-   - Each scraper checks for an existing JSON file.  
-   - Previously scraped games are loaded so the scraper can skip duplicates or refresh old entries (if run with update mode).  
+---
+
+### Scraper Workflow
+
+1. **Load existing dataset**  
+   - Each scraper checks for an existing JSON file. Previously scraped games are loaded to skip duplicates or refresh old entries (if update mode is enabled).
 
 2. **Fetch the game listing page**  
-   - Each source provides an index page containing links to all available games.  
-   - The scraper requests this page and extracts the game URLs (and sometimes metadata like upload dates).  
+   - Scrapers request the source's index page to collect all available game URLs and metadata such as upload dates.
 
-3. **Filter out unwanted entries**  
-   - Non-PC or unsupported platforms (e.g., Switch builds, emulators) are filtered out using keyword rules.  
+3. **Filter unwanted entries**  
+   - Non-PC or unsupported platforms (e.g., Switch builds, emulators) are filtered out using keyword rules.
 
-4. **Scrape each game page**  
-   For every valid game URL:  
-   - **Title:** Extracted from the page and cleaned of filler words.  
-   - **Upload date:** Parsed from listing text or page content.  
-   - **File size:** Collected if the site provides it.  
-   - **Download URIs:**  
-     - First, the scraper looks for standard download buttons/containers.  
-     - If none are found, it falls back to scanning the raw HTML for known file host patterns (GoFile, Pixeldrain, etc.).  
+4. **Scrape individual game pages**  
+   For each valid game URL:  
+   - **Title:** Extracted and cleaned of filler words.  
+   - **Upload date:** Parsed from the page or listing.  
+   - **File size:** Collected if available.  
+   - **Download URLs:**  
+     - First, standard download buttons/containers are checked.  
+     - If none are found, the scraper scans the raw HTML for known file host patterns (e.g., GoFile, Pixeldrain).
 
-5. **Merge results with existing data**  
+5. **Merge with existing data**  
    - Old links from the same host are replaced with updated ones.  
-   - Upload dates are preserved unless newer information is available.  
+   - Upload dates are preserved unless newer information is found.
 
 6. **Normalize and save**  
-   - Titles are cleaned and normalized for consistency.  
-   - The final dataset is sorted alphabetically and saved as JSON in this format:  
-     ```json
-     {
-       "name": "SourceName",
-       "downloads": [
-         {
-           "title": "Game Name",
-           "uploadDate": "2025-10-04T00:00:00Z",
-           "fileSize": "25 GB",
-           "uris": ["https://gofile.io/...", "..."],
-           "repackLinkSource": "https://example.com/..."
-         }
-       ]
-     }
-     ```
+   - Titles are normalized for consistency.  
+   - Dataset is alphabetically sorted and saved as JSON in this format:
+
+```json
+{
+  "name": "SourceName",
+  "downloads": [
+    {
+      "title": "Game Name",
+      "uploadDate": "2025-10-04T00:00:00Z",
+      "fileSize": "25 GB",
+      "uris": ["https://gofile.io/...", "..."],
+      "repackLinkSource": "https://example.com/..."
+    }
+  ]
+}
+```
+
+---
+
+### Recommended Sources (no scraper available) 🌟 Recommended
+
+Some sources are highly recommended for Hydra users, even if scrapers are not available. These sources typically come **preconfigured for Goldberg achievements**, ensuring that most games work correctly out of the box:
+
+#### Astral Games
+- **Advantages:** Games from Astral Games usually have Goldberg achievements preconfigured. Launching these games through Hydra will trigger achievements automatically in the vast majority of cases.  
+- **Notes:**  
+  - Works reliably if the game supports achievements via Goldberg.  
+  - Some Steam games may fail to unlock achievements, but Astral Games repacks are generally set up correctly.  
+  - If Goldberg cannot unlock achievements for a specific game, Astral Games cannot override this limitation.
+
+---
+
+### Planned Improvements
+- **Weekly refresh:** Re-fetch download links for games already in the JSON to prevent outdated or dead links from accumulating.
+
 ---
 
 ## Ideas
