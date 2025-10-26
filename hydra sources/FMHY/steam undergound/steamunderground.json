@@ -2,6 +2,15 @@
   "name": "SteamUnderground",
   "downloads": [
     {
+      "title": "Small Wars Mohicans",
+      "uploadDate": "2024-11-25T00:00:00Z",
+      "fileSize": "4 GB",
+      "uris": [
+        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
+    },
+    {
       "title": "#Drive Rall",
       "uploadDate": "2025-04-19T00:00:00Z",
       "fileSize": "5 GB",
@@ -3922,7 +3931,6 @@
       "uploadDate": "2025-06-12T00:00:00Z",
       "fileSize": "45 GB",
       "uris": [
-        "https://datanodes.to/h652jruokyl1/EARTH-DEFENSE-FORCE-6.rar",
         "https://datanodes.to/13cybvq0oxa2/EARTH-DEFENSE-FORCE-6-TNRT.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/earth-defense-force-6-free-download/"
@@ -9932,8 +9940,8 @@
       "uploadDate": "2025-10-24T00:00:00Z",
       "fileSize": "4 GB",
       "uris": [
-        "https://datanodes.to/xyul6zvg068p/Plants-vs-Zombies-Replanted.zip",
-        "http://Plants-vs-Zombies"
+        "http://Plants-vs-Zombies",
+        "https://datanodes.to/xyul6zvg068p/Plants-vs-Zombies-Replanted.zip"
       ],
       "repackLinkSource": "https://steamunderground.net/plants-vs-zombies-replanted-free-download/"
     },
@@ -10689,9 +10697,7 @@
       "title": "Robocop: Rogue City",
       "uploadDate": "2025-06-30T00:00:00Z",
       "fileSize": "51 GB",
-      "uris": [
-        "https://datanodes.to/rlzty1jxsici/RoboCop-Rogue-City.rar"
-      ],
+      "uris": [],
       "repackLinkSource": "https://steamunderground.net/robocop-rogue-city-free-download/"
     },
     {
@@ -11660,15 +11666,6 @@
       "repackLinkSource": "https://steamunderground.net/slimekeep-free-download/"
     },
     {
-      "title": "Small Wars Mohicans",
-      "uploadDate": "2024-11-25T00:00:00Z",
-      "fileSize": "4 GB",
-      "uris": [
-        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
-    },
-    {
       "title": "Smalland: Survive The Wilds",
       "uploadDate": "2025-07-21T00:00:00Z",
       "fileSize": "20 GB",
@@ -12369,7 +12366,8 @@
       "uploadDate": "2025-09-19T00:00:00Z",
       "fileSize": "Unknown",
       "uris": [
-        "https://datanodes.to/2djjgrhme9be/Strange-Antiquities.rar"
+        "https://datanodes.to/2djjgrhme9be/Strange-Antiquities.rar",
+        "https://gofile.io/d/T7S4vz"
       ],
       "repackLinkSource": "https://steamunderground.net/strange-antiquities-free-download/"
     },
@@ -13382,7 +13380,6 @@
       "uploadDate": "2025-05-06T00:00:00Z",
       "fileSize": "65 GB",
       "uris": [
-        "https://datanodes.to/l7x7aw54w7kx/THE-KING-OF-FIGHTERS-XV.rar",
         "https://datanodes.to/1evytxe5cu3e/THE-KING-OF-FIGHTERS-XV-TNT.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/the-king-of-fighters-xv-free-download/"
@@ -14967,9 +14964,7 @@
       "title": "Warhammer 40,000: Boltgun",
       "uploadDate": "2025-05-08T00:00:00Z",
       "fileSize": "5 GB",
-      "uris": [
-        "https://datanodes.to/lq13up1k8o75/Warhammer-40000-Boltgun.rar"
-      ],
+      "uris": [],
       "repackLinkSource": "https://steamunderground.net/warhammer-40000-boltgun-free-download/"
     },
     {
@@ -14985,9 +14980,7 @@
       "title": "Warhammer 40,000: Rogue Trader",
       "uploadDate": "2025-05-09T00:00:00Z",
       "fileSize": "40 GB",
-      "uris": [
-        "https://datanodes.to/9q3biz12mxuc/Warhammer-40000-Rogue-Trader.rar"
-      ],
+      "uris": [],
       "repackLinkSource": "https://steamunderground.net/warhammer-40000-rogue-trader-free-download/"
     },
     {
