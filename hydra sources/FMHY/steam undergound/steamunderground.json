@@ -2,6 +2,15 @@
   "name": "SteamUnderground",
   "downloads": [
     {
+      "title": "Small Wars Mohicans",
+      "uploadDate": "2024-11-25T00:00:00Z",
+      "fileSize": "4 GB",
+      "uris": [
+        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
+    },
+    {
       "title": "#Drive Rall",
       "uploadDate": "2025-04-19T00:00:00Z",
       "fileSize": "5 GB",
@@ -6224,6 +6233,15 @@
       "repackLinkSource": "https://steamunderground.net/hotline-miami-2-wrong-number-free-download/"
     },
     {
+      "title": "House Builder 2",
+      "uploadDate": "2025-10-23T00:00:00Z",
+      "fileSize": "10 GB",
+      "uris": [
+        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
+    },
+    {
       "title": "House Builder",
       "uploadDate": "2025-10-29T00:00:00Z",
       "fileSize": "Unknown",
@@ -6233,15 +6251,6 @@
         "https://vikingfile.com/f/eBUyqYceK2"
       ],
       "repackLinkSource": "https://steamunderground.net/house-builder-free-download/"
-    },
-    {
-      "title": "House Builder 2",
-      "uploadDate": "2025-10-23T00:00:00Z",
-      "fileSize": "10 GB",
-      "uris": [
-        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
     },
     {
       "title": "House Flipper",
@@ -11972,15 +11981,6 @@
       "repackLinkSource": "https://steamunderground.net/slots-and-daggers-free-download/"
     },
     {
-      "title": "Small Wars Mohicans",
-      "uploadDate": "2024-11-25T00:00:00Z",
-      "fileSize": "4 GB",
-      "uris": [
-        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
-    },
-    {
       "title": "Smalland: Survive The Wilds",
       "uploadDate": "2025-07-21T00:00:00Z",
       "fileSize": "20 GB",
@@ -13585,9 +13585,7 @@
       "title": "The Front",
       "uploadDate": "2025-11-03T00:00:00Z",
       "fileSize": "40 GB",
-      "uris": [
-        "https://datanodes.to/wn8uf7ovutu5/The-Front.rar"
-      ],
+      "uris": [],
       "repackLinkSource": "https://steamunderground.net/the-front-free-download/"
     },
     {
@@ -14599,7 +14597,8 @@
       "uploadDate": "2025-10-27T00:00:00Z",
       "fileSize": "10 GB",
       "uris": [
-        "https://datanodes.to/6rypp6tko7wy/Touhou-Danmaku-Kagura-Phantasia-Lost.rar"
+        "https://datanodes.to/6rypp6tko7wy/Touhou-Danmaku-Kagura-Phantasia-Lost.rar",
+        "https://vikingfile.com/f/xcAc3MkbL0"
       ],
       "repackLinkSource": "https://steamunderground.net/touhou-danmaku-kagura-phantasia-lost-free-download/"
     },
