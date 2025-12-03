@@ -2,15 +2,6 @@
   "name": "SteamUnderground",
   "downloads": [
     {
-      "title": "Small Wars Mohicans",
-      "uploadDate": "2024-11-25T00:00:00Z",
-      "fileSize": "4 GB",
-      "uris": [
-        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
-    },
-    {
       "title": "#Drive Rall",
       "uploadDate": "2025-04-19T00:00:00Z",
       "fileSize": "5 GB",
@@ -2733,6 +2724,15 @@
         "https://datanodes.to/ugewt0m6cemm/Company-of-Heroes-2-Master-Collection.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/company-of-heroes-2-master-collection-free-download/"
+    },
+    {
+      "title": "Company Of Heroes 3",
+      "uploadDate": "2025-12-02T00:00:00Z",
+      "fileSize": "40 GB",
+      "uris": [
+        "https://datanodes.to/12aocw3e2ool/Company-of-Heroes-3.zip"
+      ],
+      "repackLinkSource": "https://steamunderground.net/company-of-heroes-3-free-download/"
     },
     {
       "title": "Computer Repair Shop",
@@ -6046,6 +6046,15 @@
       "repackLinkSource": "https://steamunderground.net/hacker-simulator-free-download/"
     },
     {
+      "title": "Hail To The Rainbow",
+      "uploadDate": "2025-12-02T00:00:00Z",
+      "fileSize": "15 GB",
+      "uris": [
+        "https://datanodes.to/937m4tox6vi0/Hail-to-the-Rainbow.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/hail-to-the-rainbow-free-download/"
+    },
+    {
       "title": "Half-Life 2 Rtx",
       "uploadDate": "2025-03-24T00:00:00Z",
       "fileSize": "50 GB",
@@ -6566,15 +6575,6 @@
       "repackLinkSource": "https://steamunderground.net/hotline-miami-2-wrong-number-free-download/"
     },
     {
-      "title": "House Builder 2",
-      "uploadDate": "2025-10-23T00:00:00Z",
-      "fileSize": "10 GB",
-      "uris": [
-        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
-    },
-    {
       "title": "House Builder",
       "uploadDate": "2025-10-29T00:00:00Z",
       "fileSize": "Unknown",
@@ -6584,6 +6584,15 @@
         "https://vikingfile.com/f/eBUyqYceK2"
       ],
       "repackLinkSource": "https://steamunderground.net/house-builder-free-download/"
+    },
+    {
+      "title": "House Builder 2",
+      "uploadDate": "2025-10-23T00:00:00Z",
+      "fileSize": "10 GB",
+      "uris": [
+        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
     },
     {
       "title": "House Flipper",
@@ -12663,6 +12672,15 @@
         "https://akirabox.com/vgKGxVrQ638Q/file"
       ],
       "repackLinkSource": "https://steamunderground.net/slots-and-daggers-free-download/"
+    },
+    {
+      "title": "Small Wars Mohicans",
+      "uploadDate": "2024-11-25T00:00:00Z",
+      "fileSize": "4 GB",
+      "uris": [
+        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
     },
     {
       "title": "Smalland: Survive The Wilds",
