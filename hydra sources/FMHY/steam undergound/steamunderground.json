@@ -2,15 +2,6 @@
   "name": "SteamUnderground",
   "downloads": [
     {
-      "title": "Small Wars Mohicans",
-      "uploadDate": "2024-11-25T00:00:00Z",
-      "fileSize": "4 GB",
-      "uris": [
-        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
-    },
-    {
       "title": "#Drive Rall",
       "uploadDate": "2025-04-19T00:00:00Z",
       "fileSize": "5 GB",
@@ -1852,6 +1843,13 @@
       "fileSize": "8 GB",
       "uris": [],
       "repackLinkSource": "https://steamunderground.net/blazblue-entropy-effect-free-download/"
+    },
+    {
+      "title": "Blood Money: Lethal Eden",
+      "uploadDate": "2026-01-27T00:00:00Z",
+      "fileSize": "40 GB",
+      "uris": [],
+      "repackLinkSource": "https://steamunderground.net/blood-money-lethal-eden-free-download/"
     },
     {
       "title": "Blood Typers",
@@ -6492,6 +6490,17 @@
       "repackLinkSource": "https://steamunderground.net/hail-to-the-rainbow-free-download/"
     },
     {
+      "title": "Halcyon Days At Taoyuan",
+      "uploadDate": "2026-01-28T00:00:00Z",
+      "fileSize": "1 GB",
+      "uris": [
+        "https://datanodes.to/7kz1m1zb2xjb/Halcyon-Days-at-Taoyuan.rar",
+        "https://akirabox.com/QN9mEaebwm6d/file",
+        "https://vikingfile.com/f/Lzc92i9Ch5"
+      ],
+      "repackLinkSource": "https://steamunderground.net/halcyon-days-at-taoyuan-free-download/"
+    },
+    {
       "title": "Half-Life 2 Rtx",
       "uploadDate": "2025-03-24T00:00:00Z",
       "fileSize": "50 GB",
@@ -7054,15 +7063,6 @@
       "repackLinkSource": "https://steamunderground.net/hotline-miami-2-wrong-number-free-download/"
     },
     {
-      "title": "House Builder 2",
-      "uploadDate": "2025-10-23T00:00:00Z",
-      "fileSize": "10 GB",
-      "uris": [
-        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
-    },
-    {
       "title": "House Builder",
       "uploadDate": "2025-10-29T00:00:00Z",
       "fileSize": "Unknown",
@@ -7072,6 +7072,15 @@
         "https://vikingfile.com/f/eBUyqYceK2"
       ],
       "repackLinkSource": "https://steamunderground.net/house-builder-free-download/"
+    },
+    {
+      "title": "House Builder 2",
+      "uploadDate": "2025-10-23T00:00:00Z",
+      "fileSize": "10 GB",
+      "uris": [
+        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
     },
     {
       "title": "House Flipper",
@@ -10798,6 +10807,15 @@
       "repackLinkSource": "https://steamunderground.net/one-piece-pirate-warriors-4-free-download/"
     },
     {
+      "title": "One Turn Kill",
+      "uploadDate": "2026-01-27T00:00:00Z",
+      "fileSize": "600 MB",
+      "uris": [
+        "https://datanodes.to/cwun7mk0xdvd/One-Turn-Kill.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/one-turn-kill-free-download/"
+    },
+    {
       "title": "Oneshot: World Machine Edition",
       "uploadDate": "2025-05-10T00:00:00Z",
       "fileSize": "Unknown",
@@ -13469,6 +13487,15 @@
       "repackLinkSource": "https://steamunderground.net/silent-still-free-download/"
     },
     {
+      "title": "Simulacra",
+      "uploadDate": "2026-01-28T00:00:00Z",
+      "fileSize": "Unknown",
+      "uris": [
+        "https://datanodes.to/8se1nmbtaj2r/SIMULACRA.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/simulacra-free-download/"
+    },
+    {
       "title": "Single Espresso",
       "uploadDate": "2025-05-12T00:00:00Z",
       "fileSize": "800 MB",
@@ -13630,6 +13657,15 @@
         "https://akirabox.com/vgKGxVrQ638Q/file"
       ],
       "repackLinkSource": "https://steamunderground.net/slots-and-daggers-free-download/"
+    },
+    {
+      "title": "Small Wars Mohicans",
+      "uploadDate": "2024-11-25T00:00:00Z",
+      "fileSize": "4 GB",
+      "uris": [
+        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
     },
     {
       "title": "Smalland: Survive The Wilds",
@@ -13841,6 +13877,15 @@
         "https://datanodes.to/xj4pcb6op7ws/Sonic-And-All-Stars-Racing-Transformed.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/sonic-and-all-stars-racing-transformed-collection-free-download/"
+    },
+    {
+      "title": "Sonic Frontiers",
+      "uploadDate": "2026-01-29T00:00:00Z",
+      "fileSize": "30 GB",
+      "uris": [
+        "https://datanodes.to/rn2gk4ol3i3q/Sonic-Frontiers-Digital-Deluxe-Edition.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/sonic-frontiers-free-download/"
     },
     {
       "title": "Sonic Generations Collection",
