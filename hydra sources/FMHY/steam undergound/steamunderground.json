@@ -2,15 +2,6 @@
   "name": "SteamUnderground",
   "downloads": [
     {
-      "title": "Small Wars Mohicans",
-      "uploadDate": "2024-11-25T00:00:00Z",
-      "fileSize": "4 GB",
-      "uris": [
-        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
-    },
-    {
       "title": "#Drive Rall",
       "uploadDate": "2025-04-19T00:00:00Z",
       "fileSize": "5 GB",
@@ -5355,6 +5346,15 @@
       "repackLinkSource": "https://steamunderground.net/fears-to-fathom-woodbury-getaway-free-download/"
     },
     {
+      "title": "Feastopia",
+      "uploadDate": "2026-02-06T00:00:00Z",
+      "fileSize": "5 GB",
+      "uris": [
+        "https://datanodes.to/ujyafhlbgkrm/Feastopia.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/feastopia-free-download/"
+    },
+    {
       "title": "Feed And Grow: Fish",
       "uploadDate": "2025-05-08T00:00:00Z",
       "fileSize": "2 GB",
@@ -7177,15 +7177,6 @@
       "repackLinkSource": "https://steamunderground.net/hotline-miami-2-wrong-number-free-download/"
     },
     {
-      "title": "House Builder 2",
-      "uploadDate": "2025-10-23T00:00:00Z",
-      "fileSize": "10 GB",
-      "uris": [
-        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
-    },
-    {
       "title": "House Builder",
       "uploadDate": "2025-10-29T00:00:00Z",
       "fileSize": "Unknown",
@@ -7195,6 +7186,15 @@
         "https://vikingfile.com/f/eBUyqYceK2"
       ],
       "repackLinkSource": "https://steamunderground.net/house-builder-free-download/"
+    },
+    {
+      "title": "House Builder 2",
+      "uploadDate": "2025-10-23T00:00:00Z",
+      "fileSize": "10 GB",
+      "uris": [
+        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
     },
     {
       "title": "House Flipper",
@@ -10142,6 +10142,16 @@
       "repackLinkSource": "https://steamunderground.net/my-garage-free-download/"
     },
     {
+      "title": "My Hero Academia: Alls Justice",
+      "uploadDate": "2026-02-06T00:00:00Z",
+      "fileSize": "Unknown",
+      "uris": [
+        "https://datanodes.to/83x8g7tmmgeh/MY-HERO-ACADEMIA.rar",
+        "https://akirabox.com/gXeGOaZgj3Aa/file"
+      ],
+      "repackLinkSource": "https://steamunderground.net/my-hero-academia-alls-justice-free-download/"
+    },
+    {
       "title": "My Hero Ones Justice 2",
       "uploadDate": "2025-05-09T00:00:00Z",
       "fileSize": "12 GB",
@@ -10576,6 +10586,15 @@
         "https://datanodes.to/64i3zudh20ok/Nioh-2-Complete-Edition.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/nioh-2-the-complete-edition-free-download/"
+    },
+    {
+      "title": "Nioh 3",
+      "uploadDate": "2026-02-06T00:00:00Z",
+      "fileSize": "125 GB",
+      "uris": [
+        "https://datanodes.to/999ilyvfp0qy/Nioh-3.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/nioh-3-free-download/"
     },
     {
       "title": "No Im Not A Human",
@@ -13852,6 +13871,15 @@
         "https://akirabox.com/vgKGxVrQ638Q/file"
       ],
       "repackLinkSource": "https://steamunderground.net/slots-and-daggers-free-download/"
+    },
+    {
+      "title": "Small Wars Mohicans",
+      "uploadDate": "2024-11-25T00:00:00Z",
+      "fileSize": "4 GB",
+      "uris": [
+        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
     },
     {
       "title": "Smalland: Survive The Wilds",
