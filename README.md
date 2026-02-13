@@ -70,19 +70,6 @@ Stuff relating to [Hydra Launcher](https://hydralauncher.gg/), mainly just ideas
 
 ---
 
-### Recommended Sources (no scraper available) 🌟 Recommended
-
-Some sources are highly recommended for Hydra users, even if scrapers are not available. These sources typically come **preconfigured for Goldberg achievements**, ensuring that most games work correctly out of the box:
-
-#### Astral Games [visit site](https://astral-games.xyz/)
-- **Advantages:** Games from Astral Games usually have Goldberg achievements preconfigured. Launching these games through Hydra will trigger achievements automatically in the vast majority of cases.  
-- **Notes:**  
-  - Works reliably if the game supports achievements via Goldberg.  
-  - Some Steam games may fail to unlock achievements, but Astral Games repacks are generally set up correctly.  
-  - If Goldberg cannot unlock achievements for a specific game, Astral Games cannot override this limitation.
-
----
-
 ### Planned Improvements
 - **Weekly refresh:** Re-fetch download links for games already in the JSON to prevent outdated or dead links from accumulating. (this has been implemented)
 
@@ -111,7 +98,7 @@ Some sources are highly recommended for Hydra users, even if scrapers are not av
      - Rename the root folder to match the game name.  
      - Optionally, use Steam app ID to fetch official game name from Steam store.
      - Proof of concept is available [here](https://github.com/Smealm/hydra-launcher-stuff/tree/main/hydra%20folder%20operations/organize), add profile and ignore patterns for them in the profiles.json, script normalizes your game folders for you
-4. **Automatic EXE setting** — automatically set the executable of preinstalled games using the game’s Steam ID or other metadata.  
+4. **Automatic EXE setting** [IMPLEMENTED] — automatically set the executable of preinstalled games using the game’s Steam ID or other metadata.  
    - Example: Hydra downloads "Cult of the Lamb" from SteamGG. Source detection fixes folder nesting. Hydra uses SteamDB or other APIs to set the correct EXE. Custom entries can be used for games that can’t launch directly from the main EXE (e.g., cracked versions).
 
 5. **Automatic installation of repacks** — extract and install repacks (FitGirl, Dodi, etc.) automatically.  
