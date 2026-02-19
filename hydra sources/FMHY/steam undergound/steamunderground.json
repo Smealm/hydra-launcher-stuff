@@ -10786,6 +10786,13 @@
       "repackLinkSource": "https://steamunderground.net/norland-free-download/"
     },
     {
+      "title": "Norse: Oath Of Blood",
+      "uploadDate": "2026-02-18T00:00:00Z",
+      "fileSize": "60 GB",
+      "uris": [],
+      "repackLinkSource": "https://steamunderground.net/norse-oath-of-blood-free-download/"
+    },
+    {
       "title": "Northgard",
       "uploadDate": "2025-06-30T00:00:00Z",
       "fileSize": "Unknown",
@@ -14603,6 +14610,15 @@
       "repackLinkSource": "https://steamunderground.net/star-trek-infinite-free-download/"
     },
     {
+      "title": "Star Trek: Voyager Across The Unknown",
+      "uploadDate": "2026-02-18T00:00:00Z",
+      "fileSize": "Unknown",
+      "uris": [
+        "https://datanodes.to/2ubf9193bq8u/Star-Trek-Voyager-Across-the-Unknown.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/star-trek-voyager-across-the-unknown-free-download/"
+    },
+    {
       "title": "Star Trucker",
       "uploadDate": "2024-09-06T00:00:00Z",
       "fileSize": "5 GB",
@@ -14922,6 +14938,13 @@
         "https://datanodes.to/icmra9nzqzo0/Stronghold-Crusader-Definitive-Edition.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/stronghold-crusader-definitive-edition-free-download/"
+    },
+    {
+      "title": "Styx: Blades Of Greed",
+      "uploadDate": "2026-02-18T00:00:00Z",
+      "fileSize": "25 GB",
+      "uris": [],
+      "repackLinkSource": "https://steamunderground.net/styx-blades-of-greed-free-download/"
     },
     {
       "title": "Subnautica: Below Zero",
