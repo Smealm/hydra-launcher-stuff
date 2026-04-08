@@ -2,15 +2,6 @@
   "name": "SteamUnderground",
   "downloads": [
     {
-      "title": "Small Wars Mohicans",
-      "uploadDate": "2024-11-25T00:00:00Z",
-      "fileSize": "4 GB",
-      "uris": [
-        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
-    },
-    {
       "title": "#Drive Rall",
       "uploadDate": "2025-04-19T00:00:00Z",
       "fileSize": "5 GB",
@@ -1523,6 +1514,15 @@
         "https://datanodes.to/9uqdxw6doi2m/Beach-Invasion-1945-_Pacific.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/beach-invasion-1945-pacific-free-download/"
+    },
+    {
+      "title": "Beatblock",
+      "uploadDate": "2026-04-07T00:00:00Z",
+      "fileSize": "1 GB",
+      "uris": [
+        "https://datanodes.to/8ob7bj5a66o1/Beatblock.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/beatblock-free-download/"
     },
     {
       "title": "Becastled",
@@ -7358,15 +7358,6 @@
       "repackLinkSource": "https://steamunderground.net/hotline-miami-2-wrong-number-free-download/"
     },
     {
-      "title": "House Builder 2",
-      "uploadDate": "2025-10-23T00:00:00Z",
-      "fileSize": "10 GB",
-      "uris": [
-        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
-    },
-    {
       "title": "House Builder",
       "uploadDate": "2025-10-29T00:00:00Z",
       "fileSize": "Unknown",
@@ -7376,6 +7367,15 @@
         "https://vikingfile.com/f/eBUyqYceK2"
       ],
       "repackLinkSource": "https://steamunderground.net/house-builder-free-download/"
+    },
+    {
+      "title": "House Builder 2",
+      "uploadDate": "2025-10-23T00:00:00Z",
+      "fileSize": "10 GB",
+      "uris": [
+        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
     },
     {
       "title": "House Flipper",
@@ -14174,6 +14174,15 @@
       "repackLinkSource": "https://steamunderground.net/slots-and-daggers-free-download/"
     },
     {
+      "title": "Small Wars Mohicans",
+      "uploadDate": "2024-11-25T00:00:00Z",
+      "fileSize": "4 GB",
+      "uris": [
+        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
+    },
+    {
       "title": "Smalland: Survive The Wilds",
       "uploadDate": "2025-07-21T00:00:00Z",
       "fileSize": "20 GB",
@@ -16219,6 +16228,16 @@
         "https://datanodes.to/xioekkcddtcs/The-Karters-2-Turbo-Charged.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/the-karters-2-turbo-charged-free-download/"
+    },
+    {
+      "title": "The Killing Antidote",
+      "uploadDate": "2026-04-07T00:00:00Z",
+      "fileSize": "3 GB",
+      "uris": [
+        "https://vikingfile.com/f/ys3Ch84ENV",
+        "https://akirabox.com/EL73gAp4AG9B/file"
+      ],
+      "repackLinkSource": "https://steamunderground.net/the-killing-antidote-free-download/"
     },
     {
       "title": "The King Is Watching",
@@ -18635,6 +18654,16 @@
       "fileSize": "100 GB",
       "uris": [],
       "repackLinkSource": "https://steamunderground.net/world-of-outlaws-dirt-racing-24-gold-edition-free-download/"
+    },
+    {
+      "title": "World Of Secrets",
+      "uploadDate": "2026-04-07T00:00:00Z",
+      "fileSize": "Unknown",
+      "uris": [
+        "https://akirabox.com/Y2xm0Z5knzRO/file",
+        "https://vikingfile.com/f/L3NFAX4nbT"
+      ],
+      "repackLinkSource": "https://steamunderground.net/world-of-secrets-free-download/"
     },
     {
       "title": "World War Z Vr",
