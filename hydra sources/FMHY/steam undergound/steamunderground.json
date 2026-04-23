@@ -2,15 +2,6 @@
   "name": "SteamUnderground",
   "downloads": [
     {
-      "title": "Small Wars Mohicans",
-      "uploadDate": "2024-11-25T00:00:00Z",
-      "fileSize": "4 GB",
-      "uris": [
-        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
-    },
-    {
       "title": "#Drive Rall",
       "uploadDate": "2025-04-19T00:00:00Z",
       "fileSize": "5 GB",
@@ -2596,6 +2587,15 @@
         "https://datanodes.to/bn6b4urwjkag/Cast-n-Chill.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/cast-n-chill-free-download/"
+    },
+    {
+      "title": "Castle Craft",
+      "uploadDate": "2026-04-22T00:00:00Z",
+      "fileSize": "Unknown",
+      "uris": [
+        "https://datanodes.to/iez90szlgcck/Castle-Craft.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/castle-craft-free-download/"
     },
     {
       "title": "Castle Of Heart: Retold",
@@ -7466,15 +7466,6 @@
       "repackLinkSource": "https://steamunderground.net/hotline-miami-2-wrong-number-free-download/"
     },
     {
-      "title": "House Builder 2",
-      "uploadDate": "2025-10-23T00:00:00Z",
-      "fileSize": "10 GB",
-      "uris": [
-        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
-    },
-    {
       "title": "House Builder",
       "uploadDate": "2025-10-29T00:00:00Z",
       "fileSize": "Unknown",
@@ -7484,6 +7475,15 @@
         "https://vikingfile.com/f/eBUyqYceK2"
       ],
       "repackLinkSource": "https://steamunderground.net/house-builder-free-download/"
+    },
+    {
+      "title": "House Builder 2",
+      "uploadDate": "2025-10-23T00:00:00Z",
+      "fileSize": "10 GB",
+      "uris": [
+        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
     },
     {
       "title": "House Flipper",
@@ -7732,6 +7732,16 @@
         "https://datanodes.to/irgx0vdenqcq/Idle-Calibur-Zero.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/idle-calibur-zero-free-download/"
+    },
+    {
+      "title": "Idols Of Ash",
+      "uploadDate": "2026-04-22T00:00:00Z",
+      "fileSize": "1 GB",
+      "uris": [
+        "https://datanodes.to/cmhppq6qxw6s/Idols-of-Ash.rar",
+        "https://filekeeper.net/yljy5tuvqme1/Idols-of-Ash.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/idols-of-ash-free-download/"
     },
     {
       "title": "Ifsunsets",
@@ -9643,6 +9653,15 @@
         "https://datanodes.to/tft8s61p7jom/Master-of-Command.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/master-of-command-free-download/"
+    },
+    {
+      "title": "Masters Of Albion",
+      "uploadDate": "2026-04-22T00:00:00Z",
+      "fileSize": "Unknown",
+      "uris": [
+        "https://filekeeper.net/1cj73srm6ao7/MastersofAlbion.zip"
+      ],
+      "repackLinkSource": "https://steamunderground.net/masters-of-albion-free-download/"
     },
     {
       "title": "Mato Anomalies",
@@ -14296,6 +14315,15 @@
       "repackLinkSource": "https://steamunderground.net/sintopia-free-download/"
     },
     {
+      "title": "Sisters In Sin",
+      "uploadDate": "2026-04-22T00:00:00Z",
+      "fileSize": "Unknown",
+      "uris": [
+        "https://filekeeper.net/47f0487x4h7u/Sisters_in_Sin.zip"
+      ],
+      "repackLinkSource": "https://steamunderground.net/sisters-in-sin-free-download/"
+    },
+    {
       "title": "Six Days In Fallujah",
       "uploadDate": "2025-05-10T00:00:00Z",
       "fileSize": "22 GB",
@@ -14470,6 +14498,15 @@
         "https://akirabox.com/vgKGxVrQ638Q/file"
       ],
       "repackLinkSource": "https://steamunderground.net/slots-and-daggers-free-download/"
+    },
+    {
+      "title": "Small Wars Mohicans",
+      "uploadDate": "2024-11-25T00:00:00Z",
+      "fileSize": "4 GB",
+      "uris": [
+        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
     },
     {
       "title": "Smalland: Survive The Wilds",
@@ -17203,6 +17240,15 @@
         "https://datanodes.to/vg0pt5lqlrys/Thymesia.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/thymesia-free-download/"
+    },
+    {
+      "title": "Tides Of Tomorrow",
+      "uploadDate": "2026-04-22T00:00:00Z",
+      "fileSize": "Unknown",
+      "uris": [
+        "https://filekeeper.net/58oouxabygqt/Tides_of_Tomorrow.zip"
+      ],
+      "repackLinkSource": "https://steamunderground.net/tides-of-tomorrow-free-download-v1-01-dlc/"
     },
     {
       "title": "Timber Rush",
