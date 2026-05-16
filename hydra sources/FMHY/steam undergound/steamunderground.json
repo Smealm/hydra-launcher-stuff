@@ -2,15 +2,6 @@
   "name": "SteamUnderground",
   "downloads": [
     {
-      "title": "Small Wars Mohicans",
-      "uploadDate": "2024-11-25T00:00:00Z",
-      "fileSize": "4 GB",
-      "uris": [
-        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
-    },
-    {
       "title": "#Drive Rall",
       "uploadDate": "2025-04-19T00:00:00Z",
       "fileSize": "5 GB",
@@ -6475,6 +6466,15 @@
       "repackLinkSource": "https://steamunderground.net/geo-political-simulator-5-free-download/"
     },
     {
+      "title": "Get Psychic Kung Fu Master",
+      "uploadDate": "2026-05-15T00:00:00Z",
+      "fileSize": "Unknown",
+      "uris": [
+        "https://filekeeper.net/csdbmgxcbc5o/Psychic-Kung-Fu-Master.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/psychic-kung-fu-master-free-download/"
+    },
+    {
       "title": "Getting Over It With Bennett Foddy",
       "uploadDate": "2025-05-12T00:00:00Z",
       "fileSize": "2 GB",
@@ -7680,15 +7680,6 @@
       "repackLinkSource": "https://steamunderground.net/hotline-miami-2-wrong-number-free-download/"
     },
     {
-      "title": "House Builder 2",
-      "uploadDate": "2025-10-23T00:00:00Z",
-      "fileSize": "10 GB",
-      "uris": [
-        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
-    },
-    {
       "title": "House Builder",
       "uploadDate": "2025-10-29T00:00:00Z",
       "fileSize": "Unknown",
@@ -7698,6 +7689,15 @@
         "https://vikingfile.com/f/eBUyqYceK2"
       ],
       "repackLinkSource": "https://steamunderground.net/house-builder-free-download/"
+    },
+    {
+      "title": "House Builder 2",
+      "uploadDate": "2025-10-23T00:00:00Z",
+      "fileSize": "10 GB",
+      "uris": [
+        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
     },
     {
       "title": "House Flipper",
@@ -13654,6 +13654,17 @@
       "repackLinkSource": "https://steamunderground.net/rocket-boots-mania-free-download/"
     },
     {
+      "title": "Rogue Command",
+      "uploadDate": "2026-05-16T00:00:00Z",
+      "fileSize": "5 GB",
+      "uris": [
+        "https://datanodes.to/41weiokghgx6/Rogue-Command.rar",
+        "https://filekeeper.net/jz8mkfio855j/Rogue-Command.rar",
+        "https://akirabox.com/qPez4aNKaGOY/file"
+      ],
+      "repackLinkSource": "https://steamunderground.net/rogue-command-free-download/"
+    },
+    {
       "title": "Rogue Fable Iv",
       "uploadDate": "2025-05-07T00:00:00Z",
       "fileSize": "Unknown",
@@ -14872,6 +14883,15 @@
         "https://akirabox.com/vgKGxVrQ638Q/file"
       ],
       "repackLinkSource": "https://steamunderground.net/slots-and-daggers-free-download/"
+    },
+    {
+      "title": "Small Wars Mohicans",
+      "uploadDate": "2024-11-25T00:00:00Z",
+      "fileSize": "4 GB",
+      "uris": [
+        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
     },
     {
       "title": "Smalland: Survive The Wilds",
@@ -17630,6 +17650,13 @@
         "https://datanodes.to/2z5ow8700ghv/Threefold-Recital.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/threefold-recital-free-download/"
+    },
+    {
+      "title": "Thrifty Business",
+      "uploadDate": "2026-05-15T00:00:00Z",
+      "fileSize": "Unknown",
+      "uris": [],
+      "repackLinkSource": "https://steamunderground.net/thrifty-business-free-download/"
     },
     {
       "title": "Throne Of Bone",
