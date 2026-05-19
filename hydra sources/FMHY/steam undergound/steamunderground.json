@@ -2,15 +2,6 @@
   "name": "SteamUnderground",
   "downloads": [
     {
-      "title": "Small Wars Mohicans",
-      "uploadDate": "2024-11-25T00:00:00Z",
-      "fileSize": "4 GB",
-      "uris": [
-        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
-    },
-    {
       "title": "#Drive Rall",
       "uploadDate": "2025-04-19T00:00:00Z",
       "fileSize": "5 GB",
@@ -4814,6 +4805,17 @@
       "repackLinkSource": "https://steamunderground.net/dustland-delivery-free-download/"
     },
     {
+      "title": "Dwarf Eats Mountain",
+      "uploadDate": "2026-05-18T00:00:00Z",
+      "fileSize": "Unknown",
+      "uris": [
+        "https://filekeeper.net/w5ic8mcshbnh/Dwarf_Eat_Mountain.zip",
+        "https://akirabox.com/qPez4aRAPGOY/file",
+        "https://vikingfile.com/f/aae9F7is3t"
+      ],
+      "repackLinkSource": "https://steamunderground.net/dwarf-eats-mountain-free-download/"
+    },
+    {
       "title": "Dwarves: Glory, Death And Loot",
       "uploadDate": "2026-01-25T00:00:00Z",
       "fileSize": "500 MB",
@@ -7703,15 +7705,6 @@
       "repackLinkSource": "https://steamunderground.net/hotline-miami-2-wrong-number-free-download/"
     },
     {
-      "title": "House Builder 2",
-      "uploadDate": "2025-10-23T00:00:00Z",
-      "fileSize": "10 GB",
-      "uris": [
-        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
-    },
-    {
       "title": "House Builder",
       "uploadDate": "2025-10-29T00:00:00Z",
       "fileSize": "Unknown",
@@ -7721,6 +7714,15 @@
         "https://vikingfile.com/f/eBUyqYceK2"
       ],
       "repackLinkSource": "https://steamunderground.net/house-builder-free-download/"
+    },
+    {
+      "title": "House Builder 2",
+      "uploadDate": "2025-10-23T00:00:00Z",
+      "fileSize": "10 GB",
+      "uris": [
+        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
     },
     {
       "title": "House Flipper",
@@ -14918,6 +14920,15 @@
       "repackLinkSource": "https://steamunderground.net/slots-and-daggers-free-download/"
     },
     {
+      "title": "Small Wars Mohicans",
+      "uploadDate": "2024-11-25T00:00:00Z",
+      "fileSize": "4 GB",
+      "uris": [
+        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
+    },
+    {
       "title": "Smalland: Survive The Wilds",
       "uploadDate": "2025-07-21T00:00:00Z",
       "fileSize": "20 GB",
@@ -15261,6 +15272,16 @@
         "https://datanodes.to/f1g52dhhx1j9/Space-Engineers-2.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/space-engineers-2-free-download/"
+    },
+    {
+      "title": "Space Haven",
+      "uploadDate": "2026-05-18T00:00:00Z",
+      "fileSize": "Unknown",
+      "uris": [
+        "https://datanodes.to/o6qua9v0enzg/Space-Haven.rar",
+        "https://filekeeper.net/kbsoglef07l6/Space-Haven.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/space-haven-free-download/"
     },
     {
       "title": "Space Rock Breaker",
@@ -17628,6 +17649,13 @@
         "https://datanodes.to/yc5onvze2xs1/theHunter-Call-of-the-Wild.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/thehunter-call-of-the-wild-free-download/"
+    },
+    {
+      "title": "Thick As Thieves",
+      "uploadDate": "2026-05-18T00:00:00Z",
+      "fileSize": "Unknown",
+      "uris": [],
+      "repackLinkSource": "https://steamunderground.net/thick-as-thieves-free-download/"
     },
     {
       "title": "Third Crisis: Neon Nights",
