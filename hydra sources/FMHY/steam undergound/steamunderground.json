@@ -2,15 +2,6 @@
   "name": "SteamUnderground",
   "downloads": [
     {
-      "title": "Small Wars Mohicans",
-      "uploadDate": "2024-11-25T00:00:00Z",
-      "fileSize": "4 GB",
-      "uris": [
-        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
-    },
-    {
       "title": "#Drive Rall",
       "uploadDate": "2025-04-19T00:00:00Z",
       "fileSize": "5 GB",
@@ -6252,6 +6243,16 @@
       "repackLinkSource": "https://steamunderground.net/flyout-free-download/"
     },
     {
+      "title": "Fogpiercer",
+      "uploadDate": "2026-07-20T00:00:00Z",
+      "fileSize": "2 GB",
+      "uris": [
+        "https://datanodes.to/abw3qo3xh6ve/Fogpiercer.rar",
+        "https://filekeeper.net/frapeltsom5x/Fogpiercer.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/fogpiercer-free-download/"
+    },
+    {
       "title": "Food Truck Simulator",
       "uploadDate": "2025-07-01T00:00:00Z",
       "fileSize": "7 GB",
@@ -7895,15 +7896,6 @@
       "repackLinkSource": "https://steamunderground.net/hotline-miami-2-wrong-number-free-download/"
     },
     {
-      "title": "House Builder 2",
-      "uploadDate": "2025-10-23T00:00:00Z",
-      "fileSize": "10 GB",
-      "uris": [
-        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
-    },
-    {
       "title": "House Builder",
       "uploadDate": "2025-10-29T00:00:00Z",
       "fileSize": "Unknown",
@@ -7913,6 +7905,15 @@
         "https://vikingfile.com/f/eBUyqYceK2"
       ],
       "repackLinkSource": "https://steamunderground.net/house-builder-free-download/"
+    },
+    {
+      "title": "House Builder 2",
+      "uploadDate": "2025-10-23T00:00:00Z",
+      "fileSize": "10 GB",
+      "uris": [
+        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
     },
     {
       "title": "House Flipper",
@@ -15306,6 +15307,15 @@
       "repackLinkSource": "https://steamunderground.net/slots-and-daggers-free-download/"
     },
     {
+      "title": "Small Wars Mohicans",
+      "uploadDate": "2024-11-25T00:00:00Z",
+      "fileSize": "4 GB",
+      "uris": [
+        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
+    },
+    {
       "title": "Smalland: Survive The Wilds",
       "uploadDate": "2025-07-21T00:00:00Z",
       "fileSize": "20 GB",
@@ -17736,6 +17746,16 @@
         "https://datanodes.to/9iu52shu1wdb/The-Matchless-Kungfu.zip"
       ],
       "repackLinkSource": "https://steamunderground.net/the-matchless-kungfu-free-download/"
+    },
+    {
+      "title": "The Mermaid Mask",
+      "uploadDate": "2026-07-20T00:00:00Z",
+      "fileSize": "1 GB",
+      "uris": [
+        "https://datanodes.to/fktijjurnxzq/The-Mermaid-Mask.rar",
+        "https://filekeeper.net/awnzmmh98w87/The-Mermaid-Mask.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/the-mermaid-mask-free-download/"
     },
     {
       "title": "The Messenger",
