@@ -2,15 +2,6 @@
   "name": "SteamUnderground",
   "downloads": [
     {
-      "title": "Small Wars Mohicans",
-      "uploadDate": "2024-11-25T00:00:00Z",
-      "fileSize": "4 GB",
-      "uris": [
-        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
-    },
-    {
       "title": "#Drive Rall",
       "uploadDate": "2025-04-19T00:00:00Z",
       "fileSize": "5 GB",
@@ -508,6 +499,16 @@
         "https://datanodes.to/2ii7v3tb5gdr/AIR.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/air-free-download/"
+    },
+    {
+      "title": "Akatori",
+      "uploadDate": "2026-08-06T00:00:00Z",
+      "fileSize": "10 GB",
+      "uris": [
+        "https://datanodes.to/bj356pvbgg9q/Akatori.rar",
+        "https://filekeeper.net/i13jnboa4csq/Akatori.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/akatori-free-download/"
     },
     {
       "title": "Alan Wake Remastered",
@@ -8025,15 +8026,6 @@
       "repackLinkSource": "https://steamunderground.net/hotline-miami-2-wrong-number-free-download/"
     },
     {
-      "title": "House Builder 2",
-      "uploadDate": "2025-10-23T00:00:00Z",
-      "fileSize": "10 GB",
-      "uris": [
-        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
-    },
-    {
       "title": "House Builder",
       "uploadDate": "2025-10-29T00:00:00Z",
       "fileSize": "Unknown",
@@ -8043,6 +8035,15 @@
         "https://vikingfile.com/f/eBUyqYceK2"
       ],
       "repackLinkSource": "https://steamunderground.net/house-builder-free-download/"
+    },
+    {
+      "title": "House Builder 2",
+      "uploadDate": "2025-10-23T00:00:00Z",
+      "fileSize": "10 GB",
+      "uris": [
+        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
     },
     {
       "title": "House Flipper",
@@ -9230,6 +9231,16 @@
         "https://datanodes.to/bkc2ji5mg1h0/Kons-Lesson.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/kons-lesson-free-download/"
+    },
+    {
+      "title": "Korea Il-2 Series",
+      "uploadDate": "2026-08-06T00:00:00Z",
+      "fileSize": "35 GB",
+      "uris": [
+        "https://datanodes.to/wmahgcm6s6qu/Korea-IL-2-Series.rar",
+        "https://filekeeper.net/4ed516vvz08v/Korea-IL-2-Series.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/korea-il-2-series-free-download/"
     },
     {
       "title": "Kotama And Academy Citadel",
@@ -15493,6 +15504,15 @@
         "https://akirabox.com/vgKGxVrQ638Q/file"
       ],
       "repackLinkSource": "https://steamunderground.net/slots-and-daggers-free-download/"
+    },
+    {
+      "title": "Small Wars Mohicans",
+      "uploadDate": "2024-11-25T00:00:00Z",
+      "fileSize": "4 GB",
+      "uris": [
+        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
     },
     {
       "title": "Smalland: Survive The Wilds",
