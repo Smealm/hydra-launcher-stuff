@@ -2,15 +2,6 @@
   "name": "SteamUnderground",
   "downloads": [
     {
-      "title": "Small Wars Mohicans",
-      "uploadDate": "2024-11-25T00:00:00Z",
-      "fileSize": "4 GB",
-      "uris": [
-        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
-    },
-    {
       "title": "#Drive Rall",
       "uploadDate": "2025-04-19T00:00:00Z",
       "fileSize": "5 GB",
@@ -5112,6 +5103,16 @@
       "repackLinkSource": "https://steamunderground.net/dunjungle-free-download/"
     },
     {
+      "title": "Duskfade",
+      "uploadDate": "2026-08-17T00:00:00Z",
+      "fileSize": "20 GB",
+      "uris": [
+        "https://datanodes.to/r0dus6sutvub/Duskfade.rar",
+        "https://filekeeper.net/wtcdwe6nzg8l/Duskfade.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/duskfade-free-download/"
+    },
+    {
       "title": "Dustland Delivery",
       "uploadDate": "2025-04-17T00:00:00Z",
       "fileSize": "3 GB",
@@ -8136,15 +8137,6 @@
       "repackLinkSource": "https://steamunderground.net/hotline-miami-2-wrong-number-free-download/"
     },
     {
-      "title": "House Builder 2",
-      "uploadDate": "2025-10-23T00:00:00Z",
-      "fileSize": "10 GB",
-      "uris": [
-        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
-    },
-    {
       "title": "House Builder",
       "uploadDate": "2025-10-29T00:00:00Z",
       "fileSize": "Unknown",
@@ -8154,6 +8146,15 @@
         "https://vikingfile.com/f/eBUyqYceK2"
       ],
       "repackLinkSource": "https://steamunderground.net/house-builder-free-download/"
+    },
+    {
+      "title": "House Builder 2",
+      "uploadDate": "2025-10-23T00:00:00Z",
+      "fileSize": "10 GB",
+      "uris": [
+        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
     },
     {
       "title": "House Flipper",
@@ -11230,6 +11231,17 @@
         "https://datanodes.to/315a1fwc7fd3/Mortal-Kombat-Legacy-Kollection.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/mortal-kombat-legacy-kollection-free-download/"
+    },
+    {
+      "title": "Mortal Shell Ii",
+      "uploadDate": "2026-08-18T00:00:00Z",
+      "fileSize": "70 GB",
+      "uris": [
+        "https://datanodes.to/hy1tb1ceh5w4/Mortal-Shell-II.zip",
+        "https://filekeeper.net/wkd74qw9qnsz/Mortal-Shell-II.zip",
+        "https://datanodes.to/fbjyt74no9hk"
+      ],
+      "repackLinkSource": "https://steamunderground.net/mortal-shell-ii-free-download/"
     },
     {
       "title": "Mortal Sin",
@@ -15665,6 +15677,15 @@
       "repackLinkSource": "https://steamunderground.net/slots-and-daggers-free-download/"
     },
     {
+      "title": "Small Wars Mohicans",
+      "uploadDate": "2024-11-25T00:00:00Z",
+      "fileSize": "4 GB",
+      "uris": [
+        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
+    },
+    {
       "title": "Smalland: Survive The Wilds",
       "uploadDate": "2025-07-21T00:00:00Z",
       "fileSize": "20 GB",
@@ -16526,6 +16547,15 @@
         "https://datanodes.to/pnbi7vnnzslc/Sticky-Business.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/sticky-business-free-download/"
+    },
+    {
+      "title": "Stonemachia",
+      "uploadDate": "2026-08-17T00:00:00Z",
+      "fileSize": "15 GB",
+      "uris": [
+        "https://datanodes.to/tlrkf409g0b5/Stonemachia.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/stonemachia-free-download/"
     },
     {
       "title": "Stoneshard",
