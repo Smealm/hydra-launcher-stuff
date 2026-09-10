@@ -2,15 +2,6 @@
   "name": "SteamUnderground",
   "downloads": [
     {
-      "title": "Small Wars Mohicans",
-      "uploadDate": "2024-11-25T00:00:00Z",
-      "fileSize": "4 GB",
-      "uris": [
-        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
-    },
-    {
       "title": "#Drive Rall",
       "uploadDate": "2025-04-19T00:00:00Z",
       "fileSize": "5 GB",
@@ -8274,15 +8265,6 @@
       "repackLinkSource": "https://steamunderground.net/hotline-miami-2-wrong-number-free-download/"
     },
     {
-      "title": "House Builder 2",
-      "uploadDate": "2025-10-23T00:00:00Z",
-      "fileSize": "10 GB",
-      "uris": [
-        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
-      ],
-      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
-    },
-    {
       "title": "House Builder",
       "uploadDate": "2025-10-29T00:00:00Z",
       "fileSize": "Unknown",
@@ -8292,6 +8274,15 @@
         "https://vikingfile.com/f/eBUyqYceK2"
       ],
       "repackLinkSource": "https://steamunderground.net/house-builder-free-download/"
+    },
+    {
+      "title": "House Builder 2",
+      "uploadDate": "2025-10-23T00:00:00Z",
+      "fileSize": "10 GB",
+      "uris": [
+        "https://datanodes.to/1e8nbdmz1wwr/House-Builder-2.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/house-builder-2-free-download/"
     },
     {
       "title": "House Flipper",
@@ -15903,6 +15894,15 @@
       "repackLinkSource": "https://steamunderground.net/sludgineers-free-download/"
     },
     {
+      "title": "Small Wars Mohicans",
+      "uploadDate": "2024-11-25T00:00:00Z",
+      "fileSize": "4 GB",
+      "uris": [
+        "https://datanodes.to/e28lqwzo9czh/Small-Wars-Mohicans.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/small-wars-mohicans-free-download/"
+    },
+    {
       "title": "Smalland: Survive The Wilds",
       "uploadDate": "2025-07-21T00:00:00Z",
       "fileSize": "20 GB",
@@ -20320,6 +20320,16 @@
         "https://datanodes.to/tdsr644mkazj/Waltz-of-the-Wizard-VR.rar"
       ],
       "repackLinkSource": "https://steamunderground.net/waltz-of-the-wizard-free-download/"
+    },
+    {
+      "title": "Wanderburg",
+      "uploadDate": "2026-09-09T00:00:00Z",
+      "fileSize": "2 GB",
+      "uris": [
+        "https://datanodes.to/h3sed0xtusv5/Wanderburg.rar",
+        "https://filekeeper.net/amaek3nkt7bs/Wanderburg.rar"
+      ],
+      "repackLinkSource": "https://steamunderground.net/wanderburg-free-download/"
     },
     {
       "title": "Wandering Sword",
